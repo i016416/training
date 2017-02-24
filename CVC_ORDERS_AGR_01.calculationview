@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CVC_ORDERS_AGR_01" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="CVC_ORDERES_AGR_01"/>
+  <metadata changedAt="2017-02-20 14:46:08.154"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="ORDERS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Training" columnObjectName="ORDERS"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="ORDER_ID" keepFlag="true"/>
+        <viewAttribute id="PRODUCT"/>
+        <viewAttribute id="STORE"/>
+        <viewAttribute id="CUSTOMER"/>
+        <viewAttribute aggregationType="sum" id="QUANTITY"/>
+        <viewAttribute aggregationType="sum" id="UNIT_PRICE"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DECIMAL" id="TOTAL_PRICE" length="15" scale="2" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;QUANTITY&quot;*&quot;UNIT_PRICE&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#ORDERS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="ORDER_ID" source="ORDER_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT" source="PRODUCT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="STORE" source="STORE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CUSTOMER" source="CUSTOMER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="UNIT_PRICE" source="UNIT_PRICE"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Aggregation_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="PRODUCT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="PRODUCT"/>
+      </attribute>
+      <attribute id="STORE" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="STORE"/>
+      </attribute>
+      <attribute id="CUSTOMER" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="CUSTOMER"/>
+      </attribute>
+      <attribute id="ORDER_ID" order="6" attributeHierarchyActive="false" displayAttribute="false" keepFlag="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="ORDER_ID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="QUANTITY" order="4" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Aggregation_1" columnName="QUANTITY"/>
+      </measure>
+      <measure id="UNIT_PRICE" order="5" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Aggregation_1" columnName="UNIT_PRICE"/>
+      </measure>
+      <measure id="TOTAL_PRICE" order="7" semanticType="empty" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Aggregation_1" columnName="TOTAL_PRICE"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="231"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="80" y="340"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

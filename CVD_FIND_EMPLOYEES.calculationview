@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="2.3" id="CVD_FIND_EMPLOYEES" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="TREE_BASED" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection">
+  <origin/>
+  <descriptions defaultDescription="CVD_FIND_EMPLOYEES"/>
+  <metadata changedAt="2017-02-22 10:11:49.064"/>
+  <localVariables>
+    <variable id="LASTNAMEFILTER" parameter="true">
+      <descriptions defaultDescription="LASTNAMEFILTER"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="smiht" length="40" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="#TF_FUZZY_EMPLOYEES">
+      <targetVariable name="LASTNAMEFILTER" resourceUri="STUDENT01::TF_FUZZY_EMPLOYEES"/>
+      <localVariable>#LASTNAMEFILTER</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="TF_FUZZY_EMPLOYEES" type="TABLE_FUNCTION">
+      <resourceUri>STUDENT01::TF_FUZZY_EMPLOYEES</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews/>
+  <logicalModel id="TF_FUZZY_EMPLOYEES">
+    <descriptions/>
+    <attributes>
+      <attribute id="EMPLOYEEID" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EMPLOYEEID"/>
+        <keyMapping columnObjectName="TF_FUZZY_EMPLOYEES" columnName="EMPLOYEEID"/>
+      </attribute>
+      <attribute id="NAME_FIRST" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NAME.FIRST"/>
+        <keyMapping columnObjectName="TF_FUZZY_EMPLOYEES" columnName="NAME.FIRST"/>
+      </attribute>
+      <attribute id="NAME_LAST" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NAME.LAST"/>
+        <keyMapping columnObjectName="TF_FUZZY_EMPLOYEES" columnName="NAME.LAST"/>
+      </attribute>
+      <attribute id="EMAILADDRESS" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EMAILADDRESS"/>
+        <keyMapping columnObjectName="TF_FUZZY_EMPLOYEES" columnName="EMAILADDRESS"/>
+      </attribute>
+      <attribute id="ADDRESSID" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ADDRESSID"/>
+        <keyMapping columnObjectName="TF_FUZZY_EMPLOYEES" columnName="ADDRESSID"/>
+      </attribute>
+      <attribute id="CITY" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CITY"/>
+        <keyMapping columnObjectName="TF_FUZZY_EMPLOYEES" columnName="CITY"/>
+      </attribute>
+      <attribute id="POSTALCODE" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="POSTALCODE"/>
+        <keyMapping columnObjectName="TF_FUZZY_EMPLOYEES" columnName="POSTALCODE"/>
+      </attribute>
+      <attribute id="STREET" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STREET"/>
+        <keyMapping columnObjectName="TF_FUZZY_EMPLOYEES" columnName="STREET"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

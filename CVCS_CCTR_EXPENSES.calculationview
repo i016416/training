@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="2.3" id="CVCS_CCTR_EXPENSES" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED">
+  <origin/>
+  <descriptions defaultDescription="CVCS_CCTR_EXPENSES"/>
+  <metadata changedAt="2017-02-21 09:56:37.257"/>
+  <localVariables>
+    <variable id="effective_date" parameter="true">
+      <descriptions defaultDescription="effective_date"/>
+      <variableProperties datatype="DATE" defaultValue="2015-01-01" mandatory="false">
+        <valueDomain type="Date"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" forStarJoin="true">
+      <targetVariable name="effective_date" resourceUri="/STUDENT01/calculationviews/CVD_CCTR_HIER"/>
+      <localVariable>#effective_date</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="CCTR_COST" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Training" columnObjectName="CCTR_COST"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:AggregationView" id="Aggregation_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="CCTR"/>
+        <viewAttribute id="COST"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CCTR_COST">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CCTR" source="CCTR"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COST" source="COST"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Aggregation_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="CCTR$local">
+        <descriptions/>
+        <keyMapping columnObjectName="Aggregation_1" columnName="CCTR"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="COST" order="1" aggregationType="sum" measureType="simple">
+        <descriptions/>
+        <measureMapping columnObjectName="Aggregation_1" columnName="COST"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+    <sharedDimensions>
+      <logicalJoin associatedObjectUri="/STUDENT01/calculationviews/CVD_CCTR_HIER">
+        <attributes>
+          <attributeRef>#CCTR$local</attributeRef>
+        </attributes>
+        <associatedAttributeNames>
+          <attributeName>CCTR_CHILD</attributeName>
+        </associatedAttributeNames>
+        <properties joinOperator="Equal" joinType="referential"/>
+        <associatedAttributeFeatures/>
+      </logicalJoin>
+    </sharedDimensions>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Aggregation_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="110" y="250"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape modelObjectName="Aggregation_1" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+        <upperLeftCorner x="250" y="250"/>
+      </shape>
+      <shape modelObjectName="/STUDENT01/calculationviews/CVD_CCTR_HIER" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+        <upperLeftCorner x="133" y="77"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

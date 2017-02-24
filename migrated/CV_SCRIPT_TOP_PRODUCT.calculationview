@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="2.3" id="CV_SCRIPT_TOP_PRODUCT" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" historyEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="CV_SCRIPT_TOP_PRODUCT"/>
+  <metadata changedAt="2017-02-23 13:49:15.699"/>
+  <localVariables>
+    <variable id="NUMBER_OF_YEARS" parameter="true">
+      <descriptions defaultDescription="NUMBER_OF_YEARS"/>
+      <variableProperties datatype="INTEGER" mandatory="true">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+        <defaultRange/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="#TABLE_FUNCTION_CV_SCRIPT_TOP_PRODUCT">
+      <targetVariable name="NUMBER_OF_YEARS" resourceUri="STUDENT01.migrated::TABLE_FUNCTION_CV_SCRIPT_TOP_PRODUCT"/>
+      <localVariable>#NUMBER_OF_YEARS</localVariable>
+    </mapping>
+  </variableMappings>
+  <dataSources>
+    <DataSource id="TABLE_FUNCTION_CV_SCRIPT_TOP_PRODUCT" type="TABLE_FUNCTION">
+      <resourceUri>STUDENT01.migrated::TABLE_FUNCTION_CV_SCRIPT_TOP_PRODUCT</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews/>
+  <logicalModel id="TABLE_FUNCTION_CV_SCRIPT_TOP_PRODUCT">
+    <descriptions/>
+    <attributes>
+      <attribute id="PRODUCT_ID" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRODUCT_ID"/>
+        <keyMapping columnObjectName="TABLE_FUNCTION_CV_SCRIPT_TOP_PRODUCT" columnName="PRODUCT_ID"/>
+      </attribute>
+      <attribute id="CATEGORY" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CATEGORY"/>
+        <keyMapping columnObjectName="TABLE_FUNCTION_CV_SCRIPT_TOP_PRODUCT" columnName="CATEGORY"/>
+      </attribute>
+      <attribute id="CURRENCY_CODE" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CURRENCY_CODE"/>
+        <keyMapping columnObjectName="TABLE_FUNCTION_CV_SCRIPT_TOP_PRODUCT" columnName="CURRENCY_CODE"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="REVENUE" order="3" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="REVENUE"/>
+        <measureMapping columnObjectName="TABLE_FUNCTION_CV_SCRIPT_TOP_PRODUCT" columnName="REVENUE"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

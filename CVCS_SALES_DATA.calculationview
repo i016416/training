@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CVCS_SALES_DATA" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED">
+  <origin/>
+  <descriptions defaultDescription="CVCS_SALES_DATA"/>
+  <metadata changedAt="2017-02-21 09:31:02.001"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="SALES_DATA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Training" columnObjectName="SALES_DATA"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="QUANTITY"/>
+        <viewAttribute id="PRODUCT_ID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#SALES_DATA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="QUANTITY" source="QUANTITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="PRODUCT_ID$local">
+        <descriptions defaultDescription="PRODUCT_ID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="PRODUCT_ID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="QUANTITY" order="1" semanticType="empty" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="QUANTITY"/>
+        <measureMapping columnObjectName="Projection_1" columnName="QUANTITY"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+    <sharedDimensions>
+      <logicalJoin associatedObjectUri="/STUDENT01/calculationviews/CVD_PROD_HIERARCHY">
+        <attributes>
+          <attributeRef>#PRODUCT_ID$local</attributeRef>
+        </attributes>
+        <associatedAttributeNames>
+          <attributeName>PRODUCT_ID</attributeName>
+        </associatedAttributeNames>
+        <properties joinOperator="Equal" joinType="referential"/>
+        <associatedAttributeFeatures/>
+      </logicalJoin>
+    </sharedDimensions>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize/>
+      </shape>
+      <shape modelObjectName="Projection_1" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+        <upperLeftCorner x="310" y="135"/>
+      </shape>
+      <shape modelObjectName="/STUDENT01/calculationviews/CVD_PROD_HIERARCHY" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+        <upperLeftCorner x="85" y="346"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="100" y="210"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

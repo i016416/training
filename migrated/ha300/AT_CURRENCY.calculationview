@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="AT_CURRENCY" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="TREE_BASED" dataCategory="DIMENSION" dimensionType="STANDARD" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection">
+  <origin/>
+  <descriptions defaultDescription="AT_CURRENCY"/>
+  <metadata changedAt="2017-02-23 13:34:08.783" createdAt="2017-02-23 13:34:08.287"/>
+  <localVariables>
+    <variable id="languages" parameter="true">
+      <descriptions/>
+      <variableProperties datatype="NVARCHAR" length="1" mandatory="false" scale="0">
+        <valueDomain type="empty"/>
+        <selection type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="TCURT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="TCUR" columnObjectName="TCURT"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_Filters" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="WAERS"/>
+        <viewAttribute id="SPRAS"/>
+        <viewAttribute id="LTEXT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#TCURT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="WAERS" source="WAERS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SPRAS" source="SPRAS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LTEXT" source="LTEXT"/>
+      </input>
+      <filter>(&quot;SPRAS&quot; ='$$languages$$') AND (&quot;SPRAS&quot; ='$$languages$$')</filter>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_Filters">
+    <descriptions defaultDescription="AT_CURRENCY"/>
+    <attributes>
+      <attribute id="MANDT" key="true" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_Filters" columnName="MANDT"/>
+      </attribute>
+      <attribute id="WAERS" key="true" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="WAERS"/>
+        <keyMapping columnObjectName="Projection_Filters" columnName="WAERS"/>
+      </attribute>
+      <attribute id="SPRAS" key="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SPRAS"/>
+        <keyMapping columnObjectName="Projection_Filters" columnName="SPRAS"/>
+      </attribute>
+      <attribute id="LTEXT" key="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LTEXT"/>
+        <keyMapping columnObjectName="Projection_Filters" columnName="LTEXT"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner/>
+        <rectangleSize/>
+      </shape>
+      <shape modelObjectName="Projection_Filters" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner/>
+        <rectangleSize/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

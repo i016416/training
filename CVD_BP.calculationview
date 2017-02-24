@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CVD_BP" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="TREE_BASED" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection">
+  <origin/>
+  <descriptions defaultDescription="Business partner"/>
+  <metadata changedAt="2017-02-20 11:38:16.369"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="SNWD_BP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="EPM_MODEL" columnObjectName="SNWD_BP"/>
+    </DataSource>
+    <DataSource id="SNWD_CONTACT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="EPM_MODEL" columnObjectName="SNWD_CONTACT"/>
+    </DataSource>
+    <DataSource id="SNWD_BP_EM" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="EPM_MODEL" columnObjectName="SNWD_BP_EM"/>
+    </DataSource>
+    <DataSource id="SNWD_BP_PH" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="EPM_MODEL" columnObjectName="SNWD_BP_PH"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="NODE_KEY"/>
+        <viewAttribute id="BP_ID"/>
+        <viewAttribute id="BP_COMPANY_NAME"/>
+        <viewAttribute id="FIRST_NAME"/>
+        <viewAttribute id="LAST_NAME"/>
+        <viewAttribute id="LANGUAGE"/>
+        <viewAttribute hidden="true" id="JOIN$CLIENT$CLIENT"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="NVARCHAR" id="FULL_NAME" length="40" expressionLanguage="COLUMN_ENGINE">
+          <formula>&quot;FIRST_NAME&quot;+' '+&quot;LAST_NAME&quot;</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#SNWD_BP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="NODE_KEY" source="NODE_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BP_ID" source="BP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BP_COMPANY_NAME" source="BP_COMPANY_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CLIENT$CLIENT" source="CLIENT"/>
+      </input>
+      <input node="#SNWD_CONTACT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_NAME" source="FIRST_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAST_NAME" source="LAST_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANGUAGE" source="LANGUAGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CLIENT$CLIENT" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NODE_KEY" source="PARTNER_GUID"/>
+      </input>
+      <joinAttribute name="JOIN$CLIENT$CLIENT"/>
+      <joinAttribute name="NODE_KEY"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="NODE_KEY"/>
+        <viewAttribute id="BP_ID"/>
+        <viewAttribute id="BP_COMPANY_NAME"/>
+        <viewAttribute id="FIRST_NAME"/>
+        <viewAttribute id="LAST_NAME"/>
+        <viewAttribute id="LANGUAGE"/>
+        <viewAttribute id="FULL_NAME"/>
+        <viewAttribute id="EMAIL_ADDRESS"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="NODE_KEY" source="NODE_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BP_ID" source="BP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BP_COMPANY_NAME" source="BP_COMPANY_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_NAME" source="FIRST_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAST_NAME" source="LAST_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANGUAGE" source="LANGUAGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FULL_NAME" source="FULL_NAME"/>
+      </input>
+      <input node="#SNWD_BP_EM">
+        <mapping xsi:type="Calculation:AttributeMapping" target="EMAIL_ADDRESS" source="EMAIL_ADDRESS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NODE_KEY" source="PARTNER_GUID"/>
+      </input>
+      <joinAttribute name="NODE_KEY"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="FULL_NAME"/>
+        <viewAttribute id="LANGUAGE"/>
+        <viewAttribute id="LAST_NAME"/>
+        <viewAttribute id="FIRST_NAME"/>
+        <viewAttribute id="BP_COMPANY_NAME"/>
+        <viewAttribute id="BP_ID"/>
+        <viewAttribute id="NODE_KEY"/>
+        <viewAttribute id="EMAIL_ADDRESS"/>
+        <viewAttribute id="PHONE_NUMBER"/>
+        <viewAttribute id="PHONE_EXTENSION"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="VARCHAR" id="FULL_PHONE" length="30" expressionLanguage="COLUMN_ENGINE">
+          <formula>if(strlen(&quot;PHONE_EXTENSION&quot;)>0, &quot;PHONE_NUMBER&quot;+' extn:'+&quot;PHONE_EXTENSION&quot;,&quot;PHONE_NUMBER&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="FULL_NAME" source="FULL_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANGUAGE" source="LANGUAGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAST_NAME" source="LAST_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_NAME" source="FIRST_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BP_COMPANY_NAME" source="BP_COMPANY_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BP_ID" source="BP_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NODE_KEY" source="NODE_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="EMAIL_ADDRESS" source="EMAIL_ADDRESS"/>
+      </input>
+      <input node="#SNWD_BP_PH">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PHONE_NUMBER" source="PHONE_NUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PHONE_EXTENSION" source="PHONE_EXTENSION"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NODE_KEY" source="PARTNER_GUID"/>
+      </input>
+      <joinAttribute name="NODE_KEY"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_3">
+    <descriptions/>
+    <attributes>
+      <attribute id="FULL_NAME" hidden="false" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_3" columnName="FULL_NAME"/>
+      </attribute>
+      <attribute id="LANGUAGE" hidden="false" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LANGUAGE"/>
+        <keyMapping columnObjectName="Join_3" columnName="LANGUAGE"/>
+      </attribute>
+      <attribute id="LAST_NAME" hidden="true" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LAST_NAME"/>
+        <keyMapping columnObjectName="Join_3" columnName="LAST_NAME"/>
+      </attribute>
+      <attribute id="FIRST_NAME" hidden="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FIRST_NAME"/>
+        <keyMapping columnObjectName="Join_3" columnName="FIRST_NAME"/>
+      </attribute>
+      <attribute id="BP_COMPANY_NAME" hidden="true" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BP_COMPANY_NAME"/>
+        <keyMapping columnObjectName="Join_3" columnName="BP_COMPANY_NAME"/>
+      </attribute>
+      <attribute id="BP_ID" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BP_ID"/>
+        <keyMapping columnObjectName="Join_3" columnName="BP_ID"/>
+      </attribute>
+      <attribute id="NODE_KEY" order="7" attributeHierarchyActive="false" descriptionColumnName="BP_COMPANY_NAME" displayAttribute="false">
+        <descriptions defaultDescription="NODE_KEY"/>
+        <keyMapping columnObjectName="Join_3" columnName="NODE_KEY"/>
+      </attribute>
+      <attribute id="EMAIL_ADDRESS" order="8" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="EMAIL_ADDRESS"/>
+        <keyMapping columnObjectName="Join_3" columnName="EMAIL_ADDRESS"/>
+      </attribute>
+      <attribute id="PHONE_NUMBER" hidden="true" order="9" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PHONE_NUMBER"/>
+        <keyMapping columnObjectName="Join_3" columnName="PHONE_NUMBER"/>
+      </attribute>
+      <attribute id="PHONE_EXTENSION" hidden="true" order="10" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PHONE_EXTENSION"/>
+        <keyMapping columnObjectName="Join_3" columnName="PHONE_EXTENSION"/>
+      </attribute>
+      <attribute id="FULL_PHONE" hidden="false" order="11" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Join_3" columnName="FULL_PHONE"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="359"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="263"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="165"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

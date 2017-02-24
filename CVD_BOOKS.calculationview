@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CVD_BOOKS" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="TREE_BASED" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection">
+  <origin/>
+  <descriptions defaultDescription="CVD_BOOKS"/>
+  <metadata changedAt="2017-02-23 11:36:28.075"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="BOOKS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="QA_01" columnObjectName="BOOKS"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews/>
+  <logicalModel id="BOOKS">
+    <descriptions/>
+    <attributes>
+      <attribute id="TITLE" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TITLE"/>
+        <keyMapping schemaName="QA_01" columnObjectName="BOOKS" columnName="TITLE"/>
+      </attribute>
+      <attribute id="PUBLISHER" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PUBLISHER"/>
+        <keyMapping schemaName="QA_01" columnObjectName="BOOKS" columnName="PUBLISHER"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

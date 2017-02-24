@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CVD_CITIES" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="TREE_BASED" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection">
+  <origin/>
+  <descriptions defaultDescription="CVD_CITIES"/>
+  <metadata changedAt="2017-02-21 11:48:38.292"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="CITIES" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Training" columnObjectName="CITIES"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="MANDT"/>
+        <viewAttribute id="COUNTRY"/>
+        <viewAttribute id="CITY"/>
+        <viewAttribute id="CAPITAL">
+          <filter xsi:type="AccessControl:SingleValueFilter" including="true" value="Y"/>
+        </viewAttribute>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CITIES">
+        <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CITY" source="CITY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CAPITAL" source="CAPITAL"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="MANDT" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="MANDT"/>
+        <keyMapping columnObjectName="Projection_1" columnName="MANDT"/>
+      </attribute>
+      <attribute id="COUNTRY" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COUNTRY"/>
+        <keyMapping columnObjectName="Projection_1" columnName="COUNTRY"/>
+      </attribute>
+      <attribute id="CITY" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CITY"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CITY"/>
+      </attribute>
+      <attribute id="CAPITAL" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CAPITAL"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CAPITAL"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="120" y="220"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

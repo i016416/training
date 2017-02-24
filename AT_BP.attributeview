@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dimension:dimension xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" schemaVersion="1.2" id="AT_BP" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" dimensionType="Standard">
+  <origin/>
+  <descriptions defaultDescription="AT_BP"/>
+  <metadata changedAt="2017-02-20 15:23:17.207"/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <attributes>
+    <attribute id="LAST_NAME" order="1" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="LAST_NAME"/>
+      <keyMapping schemaName="EPM_MODEL" columnObjectName="SNWD_CONTACT" columnName="LAST_NAME"/>
+    </attribute>
+    <attribute id="FIRST_NAME" order="2" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="FIRST_NAME"/>
+      <keyMapping schemaName="EPM_MODEL" columnObjectName="SNWD_CONTACT" columnName="FIRST_NAME"/>
+    </attribute>
+    <attribute id="EMAIL_ADDRESS" order="3" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="EMAIL_ADDRESS"/>
+      <keyMapping schemaName="EPM_MODEL" columnObjectName="SNWD_BP_EM" columnName="EMAIL_ADDRESS"/>
+    </attribute>
+    <attribute id="BP_ID" key="true" order="4" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="BP_ID"/>
+      <keyMapping schemaName="EPM_MODEL" columnObjectName="SNWD_BP" columnName="BP_ID"/>
+    </attribute>
+    <attribute id="BP_COMPANY_NAME" order="5" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="BP_COMPANY_NAME"/>
+      <keyMapping schemaName="EPM_MODEL" columnObjectName="SNWD_BP" columnName="BP_COMPANY_NAME"/>
+    </attribute>
+    <attribute id="BP_CURRENCY_CODE" order="6" attributeHierarchyActive="false" displayAttribute="false">
+      <descriptions defaultDescription="BP_CURRENCY_CODE"/>
+      <keyMapping schemaName="EPM_MODEL" columnObjectName="SNWD_BP" columnName="BP_CURRENCY_CODE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <privateDataFoundation>
+    <tableProxies>
+      <tableProxy>
+        <table schemaName="EPM_MODEL" columnObjectName="SNWD_BP"/>
+      </tableProxy>
+      <tableProxy>
+        <table schemaName="EPM_MODEL" columnObjectName="SNWD_BP_EM"/>
+      </tableProxy>
+      <tableProxy>
+        <table schemaName="EPM_MODEL" columnObjectName="SNWD_CONTACT"/>
+      </tableProxy>
+    </tableProxies>
+    <joins>
+      <join>
+        <leftTable schemaName="EPM_MODEL" columnObjectName="SNWD_BP_EM"/>
+        <rightTable schemaName="EPM_MODEL" columnObjectName="SNWD_BP"/>
+        <leftColumns>
+          <columnName>PARTNER_GUID</columnName>
+        </leftColumns>
+        <rightColumns>
+          <columnName>NODE_KEY</columnName>
+        </rightColumns>
+        <properties joinOperator="Equal" joinType="referential"/>
+      </join>
+      <join>
+        <leftTable schemaName="EPM_MODEL" columnObjectName="SNWD_CONTACT"/>
+        <rightTable schemaName="EPM_MODEL" columnObjectName="SNWD_BP"/>
+        <leftColumns>
+          <columnName>PARTNER_GUID</columnName>
+        </leftColumns>
+        <rightColumns>
+          <columnName>NODE_KEY</columnName>
+        </rightColumns>
+        <properties joinOperator="Equal" joinType="referential"/>
+      </join>
+    </joins>
+    <layout>
+      <shapes>
+        <shape modelObjectName="SNWD_BP" modelObjectNameSpace="EPM_MODEL" modelObjectType="catalog">
+          <upperLeftCorner x="70" y="30"/>
+        </shape>
+        <shape modelObjectName="SNWD_BP_EM" modelObjectNameSpace="EPM_MODEL" modelObjectType="catalog">
+          <upperLeftCorner x="327" y="30"/>
+        </shape>
+        <shape modelObjectName="SNWD_CONTACT" modelObjectNameSpace="EPM_MODEL" modelObjectType="catalog">
+          <upperLeftCorner x="586" y="30"/>
+        </shape>
+        <shape modelObjectName="DataFoundation" modelObjectNameSpace="DataFoundation" modelObjectType="repository">
+          <upperLeftCorner x="40" y="85"/>
+          <rectangleSize/>
+        </shape>
+      </shapes>
+    </layout>
+  </privateDataFoundation>
+  <hierarchies/>
+</Dimension:dimension>

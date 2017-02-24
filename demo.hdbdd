@@ -1,0 +1,47 @@
+namespace STUDENT01;
+@Schema: 'STUDENT01' 
+context demo {
+
+type booksPlusVAT
+{
+   PUBLISHER : Integer;
+   ISBN  : hana.VARCHAR(20);
+   TITLE : hana.VARCHAR(50);
+   YEAR : hana.VARCHAR(4);
+   EDITION : Integer;
+   PRICE: Decimal(5,2);
+   PRICEPLUSVAT : Decimal(6,2);
+   CURRENCY: hana.VARCHAR(3);
+   NAME : hana.VARCHAR(50);
+   STREET : hana.VARCHAR (50);
+   POST_CODE : hana.VARCHAR (10);
+   CITY : hana.VARCHAR (50);
+   COUNTRY : hana.VARCHAR (50);
+   
+
+};
+
+  entity BOOKS {
+   key ISBN : hana.VARCHAR(20);
+   TITLE : hana.VARCHAR(50);
+   PUBLISHER : Integer;
+   EDITION : Integer;
+   YEAR : hana.VARCHAR(4);
+   PRICE: Decimal(5,2);
+   CRCY: hana.VARCHAR(3);
+   
+  };
+  entity PUBLISHERS {
+       key PUB_ID: Integer;
+	  NAME : hana.VARCHAR(50);
+	  STREET : hana.VARCHAR (50);
+	  POST_CODE : hana.VARCHAR (10);
+	  CITY : hana.VARCHAR (50);
+	  COUNTRY : hana.VARCHAR (50);
+   };
+
+  view BookDetails as select from BOOKS as b join PUBLISHERS as p on b.PUBLISHER  = p.PUB_ID {
+   b.PUBLISHER, b.ISBN, b.TITLE, b.YEAR, b.EDITION, b.PRICE, b.CRCY as "CURRENCY",
+   p.NAME, p.STREET, p.POST_CODE, p.CITY,p.COUNTRY
+  };
+};

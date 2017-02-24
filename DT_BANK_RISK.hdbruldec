@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dtmodel:decisionTableModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:alias="http://www.sap.com/ndb/Rules/Alias" xmlns:core="http://www.sap.com/ndb/Rules/Core" xmlns:dtmodel="http://www.sap.com/ndb/DecisionTableModel1.ecore" xmlns:table="http://www.sap.com/ndb/Rules/DecisionTable" schemaVersion="1.0" id="DT_BANK_RISK" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled">
+  <origin/>
+  <descriptions/>
+  <metadata changedAt="2017-02-21 14:43:47.102"/>
+  <defaultSchema/>
+  <dataSources/>
+  <privateDataFoundation>
+    <tableProxies>
+      <tableProxy>
+        <table schemaName="Training" columnObjectName="BANK_RISK_DATA"/>
+      </tableProxy>
+    </tableProxies>
+    <joins/>
+    <layout>
+      <shapes>
+        <shape modelObjectName="BANK_RISK_DATA" modelObjectNameSpace="Training" modelObjectType="catalog">
+          <upperLeftCorner x="70" y="30"/>
+        </shape>
+      </shapes>
+    </layout>
+  </privateDataFoundation>
+  <dtmodel:variables>
+    <core:variable id="VAR15a5eba5053x158af" core:assignable="true" core:length="0" core:name="CREDIT_SCORE_OF_BORROWER" core:scale="0" core:type="INTEGER">
+      <descriptions defaultDescription="CREDIT_SCORE_OF_BORROWER"/>
+      <core:simpleexp core:operator="" core:type="INTEGER">
+        <core:primitive core:value="0"/>
+      </core:simpleexp>
+      <core:valueDomain core:type="empty"/>
+      <core:selection core:isMultiLine="false" core:type=""/>
+    </core:variable>
+    <core:variable id="VAR15a5ec10545x71e93" core:assignable="true" core:length="2" core:name="CALCULATED_RISK_INDEX" core:scale="2" core:type="DECIMAL">
+      <descriptions defaultDescription="CALCULATED_RISK_INDEX"/>
+      <core:simpleexp core:operator="" core:type="DECIMAL">
+        <core:primitive core:value="0"/>
+      </core:simpleexp>
+      <core:valueDomain core:type="empty"/>
+      <core:selection core:isMultiLine="false" core:type=""/>
+    </core:variable>
+  </dtmodel:variables>
+  <alias:aliasset alias:guid="AS15a5eb7000bx33bc4">
+    <alias:basealias xsi:type="alias:TableAlias" id="TBLAL15a5eb860ecx27e61" alias:visible="true" alias:columnName="ANNUAL_INCOME_KEUR" alias:columnObjectName="BANK_RISK_DATA" alias:columntype="INTEGER" alias:modelType="table" alias:schemaName="Training">
+      <descriptions defaultDescription="ANNUAL_INCOME_KEUR"/>
+    </alias:basealias>
+    <alias:basealias xsi:type="alias:TableAlias" id="TBLAL15a5eb86bbcxa833f" alias:visible="true" alias:columnName="DEBT_TO_INCOME_RATIO" alias:columnObjectName="BANK_RISK_DATA" alias:columntype="VARCHAR" alias:modelType="table" alias:schemaName="Training">
+      <descriptions defaultDescription="DEBT_TO_INCOME_RATIO"/>
+    </alias:basealias>
+    <alias:basealias xsi:type="alias:Alias" id="VARAL15a5eba505axadad4" alias:visible="true">
+      <descriptions defaultDescription="CREDIT_SCORE_OF_BORROWER"/>
+      <alias:member alias:returntype="INTEGER" alias:varname="CREDIT_SCORE_OF_BORROWER"/>
+    </alias:basealias>
+    <alias:basealias xsi:type="alias:Alias" id="VARAL15a5ec10545x91ed1y5" alias:visible="true">
+      <descriptions defaultDescription="CALCULATED_RISK_INDEX"/>
+      <alias:member alias:returntype="DECIMAL" alias:varname="CALCULATED_RISK_INDEX"/>
+    </alias:basealias>
+  </alias:aliasset>
+  <table:decisiontable table:guid="DT15a5eb70014xc4dc0" table:name="DT_BANK_RISK">
+    <table:conditionstub table:id="CS15a5eb894e1x63924" table:conditionstubtype="regular" table:type="VARCHAR">
+      <core:lvalue>
+        <core:simpleexp core:type="VARCHAR">
+          <core:abstractreference xsi:type="core:TableReference" core:columnName="DEBT_TO_INCOME_RATIO" core:columnObjectName="BANK_RISK_DATA" core:columnType="VARCHAR" core:modelType="table" core:schemaName="Training"/>
+        </core:simpleexp>
+      </core:lvalue>
+      <table:cv table:id="CV15a5ec2d56fx59e38y1d">
+        <core:rangeexpression xsi:type="core:SimpleRangeExpression" core:comparator="Equals">
+          <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="VARCHAR">
+            <core:primitive core:value="LOW"/>
+          </core:simpleexp>
+        </core:rangeexpression>
+      </table:cv>
+      <table:cv table:id="CV15a5ec385efx88525y1f">
+        <core:rangeexpression xsi:type="core:SimpleRangeExpression" core:comparator="Equals">
+          <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="VARCHAR">
+            <core:primitive core:value="MODERATE"/>
+          </core:simpleexp>
+        </core:rangeexpression>
+      </table:cv>
+      <table:cv table:id="CV15a5ec385f0x86c15y21">
+        <core:rangeexpression xsi:type="core:SimpleRangeExpression" core:comparator="Equals">
+          <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="VARCHAR">
+            <core:primitive core:value="HIGH"/>
+          </core:simpleexp>
+        </core:rangeexpression>
+      </table:cv>
+    </table:conditionstub>
+    <table:conditionstub table:id="CS15a5eb885b8x9caac" table:conditionstubtype="regular" table:type="INTEGER">
+      <core:lvalue>
+        <core:simpleexp core:type="INTEGER">
+          <core:abstractreference xsi:type="core:TableReference" core:columnName="ANNUAL_INCOME_KEUR" core:columnObjectName="BANK_RISK_DATA" core:columnType="INTEGER" core:modelType="table" core:schemaName="Training"/>
+        </core:simpleexp>
+      </core:lvalue>
+      <table:cv table:id="CV15a5ec25190x7265dyb">
+        <core:rangeexpression xsi:type="core:SimpleRangeExpression" core:comparator="Greater Than Equals">
+          <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="INTEGER">
+            <core:primitive core:value="40"/>
+          </core:simpleexp>
+        </core:rangeexpression>
+      </table:cv>
+      <table:cv table:id="CV15a5ec25190xc1b37ye">
+        <core:rangeexpression xsi:type="core:CompoundRangeExpression" core:operator="and">
+          <core:rangeexpression xsi:type="core:SimpleRangeExpression" core:comparator="Greater Than Equals">
+            <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="INTEGER">
+              <core:primitive core:value="20"/>
+            </core:simpleexp>
+          </core:rangeexpression>
+          <core:rangeexpression xsi:type="core:SimpleRangeExpression" core:comparator="Less Than">
+            <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="INTEGER">
+              <core:primitive core:value="40"/>
+            </core:simpleexp>
+          </core:rangeexpression>
+        </core:rangeexpression>
+      </table:cv>
+      <table:cv table:id="CV15a5ec25190xaee04y11">
+        <core:rangeexpression xsi:type="core:SimpleRangeExpression" core:comparator="Less Than">
+          <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="INTEGER">
+            <core:primitive core:value="20"/>
+          </core:simpleexp>
+        </core:rangeexpression>
+      </table:cv>
+    </table:conditionstub>
+    <table:actionstub table:id="AS15a5ec141acx5fb29" table:actionstubtype="regular">
+      <core:abstractaction xsi:type="core:Action" core:type="assign" core:varname="CREDIT_SCORE_OF_BORROWER">
+        <core:assignmentvalue>
+          <core:simpleexp core:type="INTEGER">
+            <core:abstractreference xsi:type="core:VariableReference" core:varname="CREDIT_SCORE_OF_BORROWER"/>
+          </core:simpleexp>
+        </core:assignmentvalue>
+      </core:abstractaction>
+      <table:av table:ce-id-refs="CV15a5ec2d56cx9b8fcy1a CV15a5ec25190xc1b37ye" table:id="AV15a5ec30326x2cb3f">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="INTEGER">
+          <core:primitive core:value="4"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec2d56fx59e38y1d CV15a5ec25190xaee04y11" table:id="AV15a5ec385f0xc53a5y22">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="INTEGER">
+          <core:primitive core:value="200"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec385efx88525y1f CV15a5ec25190xaee04y11" table:id="AV15a5ec385f0x8e58y23">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="INTEGER">
+          <core:primitive core:value="160"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec385f0x86c15y21 CV15a5ec25190xaee04y11" table:id="AV15a5ec385f0x244c9y24">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="INTEGER">
+          <core:primitive core:value="96"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec2d56fx59e38y1d CV15a5ec25190xc1b37ye" table:id="AV15a5ec385f2xb8fda">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="INTEGER">
+          <core:primitive core:value="350"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec385efx88525y1f CV15a5ec25190xc1b37ye" table:id="AV15a5ec385f2xa7628y27">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="INTEGER">
+          <core:primitive core:value="280"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec385f0x86c15y21 CV15a5ec25190xc1b37ye" table:id="AV15a5ec385f2x8250ey28">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="INTEGER">
+          <core:primitive core:value="168"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec2d56fx59e38y1d CV15a5ec25190x7265dyb" table:id="AV15a5ec385f3x68efcy2b">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="INTEGER">
+          <core:primitive core:value="600"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec385efx88525y1f CV15a5ec25190x7265dyb" table:id="AV15a5ec385f3xceb20y2c">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="INTEGER">
+          <core:primitive core:value="480"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec385f0x86c15y21 CV15a5ec25190x7265dyb" table:id="AV15a5ec385f3x10dc6y2d">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="INTEGER">
+          <core:primitive core:value="288"/>
+        </core:simpleexp>
+      </table:av>
+    </table:actionstub>
+    <table:actionstub table:id="AS15a5ec141acx2c426y6" table:actionstubtype="regular">
+      <core:abstractaction xsi:type="core:Action" core:type="assign" core:varname="CALCULATED_RISK_INDEX">
+        <core:assignmentvalue>
+          <core:simpleexp core:type="DECIMAL">
+            <core:abstractreference xsi:type="core:VariableReference" core:varname="CALCULATED_RISK_INDEX"/>
+          </core:simpleexp>
+        </core:assignmentvalue>
+      </core:abstractaction>
+      <table:av table:ce-id-refs="CV15a5ec2d56fx59e38y1d CV15a5ec25190xaee04y11" table:id="AV15a5ec385f1xd39b8">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="DECIMAL">
+          <core:primitive core:value="7.03"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec385efx88525y1f CV15a5ec25190xaee04y11" table:id="AV15a5ec385f1xbd517y25">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="DECIMAL">
+          <core:primitive core:value="8.47"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec385f0x86c15y21 CV15a5ec25190xaee04y11" table:id="AV15a5ec385f1x20987y26">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="DECIMAL">
+          <core:primitive core:value="10.19"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec2d56fx59e38y1d CV15a5ec25190xc1b37ye" table:id="AV15a5ec385f2xfc1dy29">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="DECIMAL">
+          <core:primitive core:value="5.58"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec385efx88525y1f CV15a5ec25190xc1b37ye" table:id="AV15a5ec385f3x45629">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="DECIMAL">
+          <core:primitive core:value="6.72"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec385f0x86c15y21 CV15a5ec25190xc1b37ye" table:id="AV15a5ec385f3x30bc2y2a">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="DECIMAL">
+          <core:primitive core:value="8.11"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec2d56fx59e38y1d CV15a5ec25190x7265dyb" table:id="AV15a5ec385f4x1ad02">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="DECIMAL">
+          <core:primitive core:value="4.55"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec385efx88525y1f CV15a5ec25190x7265dyb" table:id="AV15a5ec385f4x6ef55y2e">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="DECIMAL">
+          <core:primitive core:value="5.48"/>
+        </core:simpleexp>
+      </table:av>
+      <table:av table:ce-id-refs="CV15a5ec385f0x86c15y21 CV15a5ec25190x7265dyb" table:id="AV15a5ec385f4x24e5by2f">
+        <core:simpleexp core:closebracket="0" core:openbracket="0" core:operator="" core:type="DECIMAL">
+          <core:primitive core:value="6.63"/>
+        </core:simpleexp>
+      </table:av>
+    </table:actionstub>
+    <table:tablelayout>
+      <table:conditionstub-layout table:width="152" table:stub-id="CS15a5eb885b8x9caac" table:type="horizontal">
+        <table:cell table:ref-id="CV15a5ec25190xaee04y11" table:span="1"/>
+        <table:cell table:ref-id="CV15a5ec25190xc1b37ye" table:span="1"/>
+        <table:cell table:ref-id="CV15a5ec25190x7265dyb" table:span="1"/>
+      </table:conditionstub-layout>
+      <table:conditionstub-layout table:width="152" table:stub-id="CS15a5eb894e1x63924" table:type="vertical">
+        <table:cell table:ref-id="CV15a5ec2d56fx59e38y1d" table:span="1"/>
+        <table:cell table:ref-id="CV15a5ec385efx88525y1f" table:span="1"/>
+        <table:cell table:ref-id="CV15a5ec385f0x86c15y21" table:span="1"/>
+      </table:conditionstub-layout>
+      <table:actionstub-layout table:width="100" table:stub-id="AS15a5ec141acx5fb29"/>
+      <table:actionstub-layout table:width="100" table:stub-id="AS15a5ec141acx2c426y6"/>
+      <table:actionstub-layout table:width="100" table:stub-id="AS15a5ec141acx5fb29"/>
+      <table:actionstub-layout table:width="100" table:stub-id="AS15a5ec141acx2c426y6"/>
+      <table:actionstub-layout table:width="184" table:stub-id="AS15a5ec141acx5fb29"/>
+      <table:actionstub-layout table:width="152" table:stub-id="AS15a5ec141acx2c426y6"/>
+    </table:tablelayout>
+  </table:decisiontable>
+</dtmodel:decisionTableModel>

@@ -1,0 +1,21 @@
+FUNCTION "STUDENT01"."STUDENT01::use_procedure" (tax DECIMAL(5,2))
+returns table  
+  (ISBN VARCHAR (20),
+   TITLE VARCHAR (50),
+   PUBLISHER INT,
+   PRICE DECIMAL (33,2),
+   PRICE_VAT DECIMAL (33,2),
+   CURRENCY VARCHAR (3)
+  )
+
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER AS
+BEGIN
+
+call  "STUDENT01"."STUDENT01::P_BOOKS_VAT_01"(tax=>:tax, out_with_tax=>temp);
+
+return select * from :temp;
+/***************************** 
+	Write your function logic
+ *****************************/
+END;

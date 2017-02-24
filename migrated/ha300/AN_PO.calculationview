@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="AN_PO" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" analyticViewCompatibilityMode="true" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" rowCounterName="row.count">
+  <origin/>
+  <descriptions defaultDescription="Purchase Orders"/>
+  <metadata changedAt="2017-02-23 13:34:09.39" createdAt="2017-02-23 13:34:06.858"/>
+  <localVariables>
+    <variable id="VAR_CURRENCY">
+      <descriptions defaultDescription="Purchase Order Currency"/>
+      <variableProperties datatype="VARCHAR" mandatory="true">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>STUDENT01.migrated.STUDENT01.ha300::AT_CURRENCY</externalLikeStructureName>
+          <externalLikeStructureType>ATTRIBUTE_VIEW</externalLikeStructureType>
+          <externalLikeElementName>WAERS</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="SNWD_PO" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="EPM_MODEL" columnObjectName="SNWD_PO"/>
+    </DataSource>
+    <DataSource id="SNWD_PO_I" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="EPM_MODEL" columnObjectName="SNWD_PO_I"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection" filterExpressionLanguage="COLUMN_ENGINE">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PO_ID"/>
+        <viewAttribute id="CLIENT_BP"/>
+        <viewAttribute id="PARTNER_GUID"/>
+        <viewAttribute id="NODE_KEY"/>
+        <viewAttribute id="LIFECYCLE_STATUS"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#SNWD_PO">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PO_ID" source="PO_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT_BP" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARTNER_GUID" source="PARTNER_GUID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NODE_KEY" source="NODE_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFECYCLE_STATUS" source="LIFECYCLE_STATUS"/>
+      </input>
+      <filter>(&quot;LIFECYCLE_STATUS&quot; ='N')</filter>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="DafoJoin_1" cardinality="C1_N" dynamic="false" joinType="inner" optimizeJoinColumns="false">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PO_ID"/>
+        <viewAttribute id="CLIENT_BP"/>
+        <viewAttribute id="PARTNER_GUID"/>
+        <viewAttribute id="NODE_KEY"/>
+        <viewAttribute id="LIFECYCLE_STATUS"/>
+        <viewAttribute id="PO_ITEM_POS"/>
+        <viewAttribute id="CURRENCY_CODE"/>
+        <viewAttribute id="CLIENT_PD"/>
+        <viewAttribute id="PRODUCT_GUID"/>
+        <viewAttribute id="GROSS_AMOUNT"/>
+        <viewAttribute id="NET_AMOUNT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PO_ID" source="PO_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT_BP" source="CLIENT_BP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARTNER_GUID" source="PARTNER_GUID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NODE_KEY" source="NODE_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LIFECYCLE_STATUS" source="LIFECYCLE_STATUS"/>
+      </input>
+      <input node="#SNWD_PO_I">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PO_ITEM_POS" source="PO_ITEM_POS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY_CODE" source="CURRENCY_CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT_PD" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_GUID" source="PRODUCT_GUID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GROSS_AMOUNT" source="GROSS_AMOUNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NET_AMOUNT" source="NET_AMOUNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT_BP" source="CLIENT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NODE_KEY" source="PARENT_KEY"/>
+      </input>
+      <joinAttribute name="CLIENT_BP"/>
+      <joinAttribute name="NODE_KEY"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PO_ID"/>
+        <viewAttribute id="CLIENT_BP"/>
+        <viewAttribute id="PARTNER_GUID"/>
+        <viewAttribute id="NODE_KEY"/>
+        <viewAttribute id="PO_ITEM_POS"/>
+        <viewAttribute id="CURRENCY_CODE"/>
+        <viewAttribute id="CLIENT_PD"/>
+        <viewAttribute id="PRODUCT_GUID"/>
+        <viewAttribute id="GROSS_AMOUNT"/>
+        <viewAttribute id="NET_AMOUNT"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#DafoJoin_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PO_ID" source="PO_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT_BP" source="CLIENT_BP"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARTNER_GUID" source="PARTNER_GUID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NODE_KEY" source="NODE_KEY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PO_ITEM_POS" source="PO_ITEM_POS"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY_CODE" source="CURRENCY_CODE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CLIENT_PD" source="CLIENT_PD"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_GUID" source="PRODUCT_GUID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GROSS_AMOUNT" source="GROSS_AMOUNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NET_AMOUNT" source="NET_AMOUNT"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions defaultDescription="Purchase Orders"/>
+    <attributes>
+      <attribute id="PO_ID" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PO_ID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="PO_ID"/>
+      </attribute>
+      <attribute id="PO_ITEM_POS" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PO_ITEM_POS"/>
+        <keyMapping columnObjectName="Projection_1" columnName="PO_ITEM_POS"/>
+      </attribute>
+      <attribute id="CURRENCY_CODE" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CURRENCY_CODE"/>
+        <localVariable>#VAR_CURRENCY</localVariable>
+        <keyMapping columnObjectName="Projection_1" columnName="CURRENCY_CODE"/>
+      </attribute>
+      <attribute id="CLIENT_BP$local">
+        <descriptions defaultDescription="CLIENT"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CLIENT_BP"/>
+      </attribute>
+      <attribute id="PARTNER_GUID$local">
+        <descriptions defaultDescription="PARTNER_GUID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="PARTNER_GUID"/>
+      </attribute>
+      <attribute id="CLIENT_PD$local">
+        <descriptions defaultDescription="CLIENT_1"/>
+        <keyMapping columnObjectName="Projection_1" columnName="CLIENT_PD"/>
+      </attribute>
+      <attribute id="PRODUCT_GUID$local">
+        <descriptions defaultDescription="PRODUCT_GUID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="PRODUCT_GUID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="GROSS_AMOUNT" order="4" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="GROSS_AMOUNT"/>
+        <measureMapping columnObjectName="Projection_1" columnName="GROSS_AMOUNT"/>
+      </measure>
+      <measure id="NET_AMOUNT" order="5" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="NET_AMOUNT"/>
+        <measureMapping columnObjectName="Projection_1" columnName="NET_AMOUNT"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+    <sharedDimensions>
+      <logicalJoin associatedObjectUri="/STUDENT01.migrated.ha300/calculationviews/AT_BP">
+        <attributes>
+          <attributeRef>#CLIENT_BP$local</attributeRef>
+          <attributeRef>#PARTNER_GUID$local</attributeRef>
+        </attributes>
+        <associatedAttributeNames>
+          <attributeName>CLIENT</attributeName>
+          <attributeName>NODE_KEY</attributeName>
+        </associatedAttributeNames>
+        <properties cardinality="CN_1" joinOperator="Equal" joinType="referential" optimizeJoinColumns="false"/>
+        <associatedAttributeFeatures/>
+      </logicalJoin>
+      <logicalJoin associatedObjectUri="/STUDENT01.migrated.ha300/calculationviews/AT_PD">
+        <attributes>
+          <attributeRef>#CLIENT_PD$local</attributeRef>
+          <attributeRef>#PRODUCT_GUID$local</attributeRef>
+        </attributes>
+        <associatedAttributeNames>
+          <attributeName>CLIENT</attributeName>
+          <attributeName>NODE_KEY</attributeName>
+        </associatedAttributeNames>
+        <properties cardinality="CN_1" joinOperator="Equal" joinType="referential" optimizeJoinColumns="false"/>
+        <associatedAttributeFeatures>
+          <attributeReference alias="CLIENT_PD_ALIAS" attributeName="CLIENT"/>
+          <attributeReference alias="NODE_KEY_PD_ALIAS" attributeName="NODE_KEY"/>
+        </associatedAttributeFeatures>
+      </logicalJoin>
+    </sharedDimensions>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner/>
+        <rectangleSize/>
+      </shape>
+      <shape modelObjectName="Projection" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner/>
+        <rectangleSize/>
+      </shape>
+      <shape modelObjectName="DafoJoin_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner/>
+        <rectangleSize/>
+      </shape>
+      <shape modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner/>
+        <rectangleSize/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

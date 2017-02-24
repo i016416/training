@@ -1,0 +1,35 @@
+PROCEDURE "STUDENT01"."STUDENT01::P_BOOKS_VAT_01"
+(IN tax DECIMAL(5,2),
+ OUT out_with_tax table
+  (ISBN VARCHAR (20),
+   TITLE VARCHAR (50),
+   PUBLISHER INT,
+   PRICE DECIMAL (33,2),
+   PRICE_VAT DECIMAL (33,2),
+   CURRENCY VARCHAR (3)
+  )
+)
+
+LANGUAGE SQLSCRIPT
+SQL SECURITY DEFINER
+DEFAULT SCHEMA STUDENT01
+READS SQL DATA AS
+
+/********* Begin Procedure Script ************/ 
+BEGIN 
+declare t_vat decimal(5,2) ;
+t_vat = :tax;
+if :tax < 0
+then
+t_vat = 1;
+end if;
+out_with_tax = SELECT ISBN,
+                      TITLE,
+                      PUBLISHER,
+                      PRICE,
+                      PRICE * :t_vat AS PRICE_VAT,
+                      CRCY AS CURRENCY
+               FROM BOOKS;
+			
+END;
+/********* End Procedure Script ************/

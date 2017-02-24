@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dimension:dimension xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" xsi:type="Dimension:DerivedDimension" schemaVersion="1.2" id="AV_BP_DER" applyPrivilegeType="ANALYTIC_PRIVILEGE">
+  <descriptions defaultDescription="AV_BP_DER"/>
+  <metadata changedAt="2017-02-20 15:22:58.831" createdAt="2017-02-20 15:22:58.831"/>
+  <baseDimensionUri>/STUDENT01/attributeviews/AT_BP</baseDimensionUri>
+</Dimension:dimension>

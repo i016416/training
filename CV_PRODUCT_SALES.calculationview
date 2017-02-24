@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="2.3" id="CV_PRODUCT_SALES" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="CVC_PORDUCT_SALES"/>
+  <metadata changedAt="2017-02-21 13:39:54.993"/>
+  <defaultSchema schemaName="TCUR"/>
+  <localVariables>
+    <variable id="ask_for_currency">
+      <descriptions defaultDescription="ask_for_currency"/>
+      <variableProperties defaultValue="EUR" mandatory="false">
+        <valueDomain type="AttributeValue">
+          <attribute name="CURRENCY"/>
+        </valueDomain>
+        <selection multiLine="true" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+    <variable id="pick_a_gst" parameter="true">
+      <descriptions defaultDescription="gst?"/>
+      <variableProperties datatype="INTEGER" defaultValue="10" mandatory="false">
+        <valueDomain type="StaticList">
+          <listEntry id="10">
+            <descriptions defaultDescription="Australia"/>
+          </listEntry>
+          <listEntry id="20">
+            <descriptions defaultDescription="NZ"/>
+          </listEntry>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="SALES_DATA" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Training" columnObjectName="SALES_DATA"/>
+    </DataSource>
+    <DataSource id="PRODUCT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Training" columnObjectName="PRODUCT"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="TOTAL_AMOUNT"/>
+        <viewAttribute id="PRODUCT_TEXT"/>
+        <viewAttribute id="CURRENCY"/>
+        <viewAttribute hidden="true" id="JOIN$PRODUCT_ID$PRODUCT_ID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#SALES_DATA">
+        <mapping xsi:type="Calculation:AttributeMapping" target="TOTAL_AMOUNT" source="AMOUNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CURRENCY" source="CURRENCY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_ID$PRODUCT_ID" source="PRODUCT_ID"/>
+      </input>
+      <input node="#PRODUCT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_TEXT" source="PRODUCT_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_ID$PRODUCT_ID" source="PRODUCT_ID"/>
+      </input>
+      <joinAttribute name="JOIN$PRODUCT_ID$PRODUCT_ID"/>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="PRODUCT_TEXT" hidden="true" order="2" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRODUCT_TEXT"/>
+        <keyMapping columnObjectName="Join_1" columnName="PRODUCT_TEXT"/>
+      </attribute>
+      <attribute id="CURRENCY" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CURRENCY"/>
+        <localVariable>#ask_for_currency</localVariable>
+        <keyMapping columnObjectName="Join_1" columnName="CURRENCY"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="TOTAL_AMOUNT" order="1" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="TOTAL_AMOUNT"/>
+        <unitCurrencyAttribute attributeName="CURRENCY"/>
+        <measureMapping columnObjectName="Join_1" columnName="TOTAL_AMOUNT"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures>
+      <measure id="PERCENTAGE_SALES_INPUT_DEVICES" hidden="false" order="4" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="5" scale="3">
+        <descriptions defaultDescription="PERCENTAGE_SALES_INPUT_DEVICES"/>
+        <formula>&quot;INPUT_DEVICE_SALES&quot;*100/&quot;TOTAL_AMOUNT&quot;</formula>
+      </measure>
+      <measure id="PERCENTAGE_SALES_COMPUTERS" hidden="false" order="7" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="5" scale="3">
+        <descriptions defaultDescription="PERCENTAGE_SALES_COMPUTERS"/>
+        <formula>&quot;COMPUTER_SALES&quot;*100/&quot;TOTAL_AMOUNT&quot;</formula>
+      </measure>
+      <measure id="OTHER_PRODUCT_SALES" hidden="false" order="8" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="SQL" length="15" scale="2">
+        <descriptions defaultDescription="OTHER_PRODUCT_SALES"/>
+        <formula>&quot;TOTAL_AMOUNT&quot;-(&quot;INPUT_DEVICE_SALES&quot;+&quot;COMPUTER_SALES&quot;)</formula>
+      </measure>
+      <measure id="PERCENTAGE_SALES_OTHER_PRODUCTS" hidden="false" order="9" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="5" scale="3">
+        <descriptions defaultDescription="PERCENTAGE_SALES_OTHER_PRODUCTS"/>
+        <formula>&quot;OTHER_PRODUCT_SALES&quot;*100/&quot;TOTAL_AMOUNT&quot;</formula>
+      </measure>
+      <measure id="amount_plus_gst" hidden="false" order="10" aggregationType="sum" measureType="simple" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="10" scale="2">
+        <descriptions defaultDescription="amount_plus_gst"/>
+        <formula>&quot;TOTAL_AMOUNT&quot;*(1+($$pick_a_gst$$/100))</formula>
+      </measure>
+      <measure id="amount_USD" hidden="false" order="11" semanticType="amount" aggregationType="sum" measureType="amount" datatype="DECIMAL" expressionLanguage="COLUMN_ENGINE" length="15" scale="3">
+        <descriptions defaultDescription="amount_USD"/>
+        <fixedCurrency>USD</fixedCurrency>
+        <currencyConversion errorHandling="failOnError" generateOutputUnitCurrencyAttribute="true" outputUnitCurrencyAttributeName="amount_USD_CURRENCY">
+          <client>
+            <value>$$client$$</value>
+          </client>
+          <schema schemaName="TCUR"/>
+          <sourceCurrency>
+            <attribute attributeName="CURRENCY"/>
+          </sourceCurrency>
+          <erpDecimalShift>true</erpDecimalShift>
+          <erpDecimalShiftBack>false</erpDecimalShiftBack>
+          <targetCurrency>
+            <value>USD</value>
+          </targetCurrency>
+          <referenceDate>
+            <value>20151112</value>
+          </referenceDate>
+          <exchangeRateType>EZB</exchangeRateType>
+        </currencyConversion>
+        <formula>&quot;TOTAL_AMOUNT&quot;</formula>
+      </measure>
+    </calculatedMeasures>
+    <restrictedMeasures>
+      <measure id="INPUT_DEVICE_SALES" hidden="false" order="3" baseMeasure="#TOTAL_AMOUNT">
+        <descriptions defaultDescription="INPUT_DEVICE_SALES"/>
+        <restriction logicalOperator="AND">
+          <filter xsi:type="Privilege:AttributeFilter" attributeName="PRODUCT_TEXT">
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Keyboard"/>
+            <valueFilter xsi:type="AccessControl:SingleValueFilter" including="true" value="Mouse"/>
+          </filter>
+          <attributeName>PRODUCT_TEXT</attributeName>
+        </restriction>
+      </measure>
+      <measure id="COMPUTER_SALES" hidden="false" order="6" baseMeasure="#TOTAL_AMOUNT" restrictionExpressionLanguage="SQL">
+        <descriptions defaultDescription="COMPUTER_SALES"/>
+        <restrictionExpression>(&quot;PRODUCT_TEXT&quot; = 'Laptop' OR &quot;PRODUCT_TEXT&quot; like '%station%')</restrictionExpression>
+      </measure>
+    </restrictedMeasures>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="70" y="210"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

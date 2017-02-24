@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CVCS_EMPLOYEE_ADDRESS" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="true" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED">
+  <origin/>
+  <descriptions defaultDescription="CVCS_EMPLOYEE_ADDRESS"/>
+  <metadata changedAt="2017-02-22 10:58:09.604"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="SNWD_EMPLOYEES" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="EPM_MODEL" columnObjectName="SNWD_EMPLOYEES"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="FIRST_NAME"/>
+        <viewAttribute id="LAST_NAME"/>
+        <viewAttribute id="SEX"/>
+        <viewAttribute id="LANGUAGE"/>
+        <viewAttribute id="SALARY_AMOUNT"/>
+        <viewAttribute id="PR_ADDRESS_GUID"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#SNWD_EMPLOYEES">
+        <mapping xsi:type="Calculation:AttributeMapping" target="FIRST_NAME" source="FIRST_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LAST_NAME" source="LAST_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SEX" source="SEX"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="LANGUAGE" source="LANGUAGE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SALARY_AMOUNT" source="SALARY_AMOUNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PR_ADDRESS_GUID" source="PR_ADDRESS_GUID"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="FIRST_NAME" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="FIRST_NAME"/>
+        <keyMapping columnObjectName="Projection_1" columnName="FIRST_NAME"/>
+      </attribute>
+      <attribute id="LAST_NAME" order="2" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LAST_NAME"/>
+        <keyMapping columnObjectName="Projection_1" columnName="LAST_NAME"/>
+      </attribute>
+      <attribute id="SEX" order="3" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SEX"/>
+        <keyMapping columnObjectName="Projection_1" columnName="SEX"/>
+      </attribute>
+      <attribute id="LANGUAGE" order="4" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="LANGUAGE"/>
+        <keyMapping columnObjectName="Projection_1" columnName="LANGUAGE"/>
+      </attribute>
+      <attribute id="PR_ADDRESS_GUID$local">
+        <descriptions defaultDescription="PR_ADDRESS_GUID"/>
+        <keyMapping columnObjectName="Projection_1" columnName="PR_ADDRESS_GUID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="SALARY_AMOUNT" order="5" semanticType="empty" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="SALARY_AMOUNT"/>
+        <measureMapping columnObjectName="Projection_1" columnName="SALARY_AMOUNT"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+    <sharedDimensions>
+      <logicalJoin associatedObjectUri="/STUDENT01/calculationviews/CVD_GEO_HIERARCHY">
+        <attributes>
+          <attributeRef>#PR_ADDRESS_GUID$local</attributeRef>
+        </attributes>
+        <associatedAttributeNames>
+          <attributeName>NODE_KEY</attributeName>
+        </associatedAttributeNames>
+        <properties joinOperator="Equal" joinType="referential"/>
+        <associatedAttributeFeatures/>
+        <associatedHierarchyFeature hierarchyName="H_GEO">
+          <joinProperties nodeElementName="H_GEONode" expressionParameterName="H_GEOExpression">
+            <levelElementName xsi:nil="true"/>
+            <ordinalElementName xsi:nil="true"/>
+          </joinProperties>
+        </associatedHierarchyFeature>
+      </logicalJoin>
+    </sharedDimensions>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize/>
+      </shape>
+      <shape modelObjectName="Projection_1" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+        <upperLeftCorner x="250" y="250"/>
+      </shape>
+      <shape modelObjectName="/STUDENT01/calculationviews/CVD_GEO_HIERARCHY" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+        <upperLeftCorner x="365" y="44"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="110" y="210"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

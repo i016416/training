@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" schemaVersion="2.3" id="CVC_BOOKS" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <descriptions defaultDescription="CVC_BOOKS"/>
+  <metadata changedAt="2017-02-23 14:21:14.586"/>
+  <localVariables>
+    <variable id="VAT" parameter="true">
+      <descriptions defaultDescription="VAT"/>
+      <variableProperties datatype="DECIMAL" length="5" mandatory="false">
+        <valueDomain type="empty"/>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings>
+    <mapping xsi:type="Variable:VariableMapping" dataSource="#booksPlusVAT">
+      <targetVariable name="VAT" resourceUri="STUDENT01::booksPlusVAT"/>
+      <localVariable>#VAT</localVariable>
+    </mapping>
+  </variableMappings>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="booksPlusVAT" type="TABLE_FUNCTION">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>STUDENT01::booksPlusVAT</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews/>
+  <logicalModel id="booksPlusVAT">
+    <descriptions/>
+    <attributes>
+      <attribute id="CURRENCY" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CURRENCY"/>
+        <keyMapping columnObjectName="booksPlusVAT" columnName="CURRENCY"/>
+      </attribute>
+      <attribute id="NAME" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NAME"/>
+        <keyMapping columnObjectName="booksPlusVAT" columnName="NAME"/>
+      </attribute>
+      <attribute id="YEAR" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="YEAR"/>
+        <keyMapping columnObjectName="booksPlusVAT" columnName="YEAR"/>
+      </attribute>
+      <attribute id="STREET" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="STREET"/>
+        <keyMapping columnObjectName="booksPlusVAT" columnName="STREET"/>
+      </attribute>
+      <attribute id="EDITION" order="5" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="EDITION"/>
+        <keyMapping columnObjectName="booksPlusVAT" columnName="EDITION"/>
+      </attribute>
+      <attribute id="POST_CODE" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="POST_CODE"/>
+        <keyMapping columnObjectName="booksPlusVAT" columnName="POST_CODE"/>
+      </attribute>
+      <attribute id="TITLE" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="TITLE"/>
+        <keyMapping columnObjectName="booksPlusVAT" columnName="TITLE"/>
+      </attribute>
+      <attribute id="CITY" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CITY"/>
+        <keyMapping columnObjectName="booksPlusVAT" columnName="CITY"/>
+      </attribute>
+      <attribute id="COUNTRY" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COUNTRY"/>
+        <keyMapping columnObjectName="booksPlusVAT" columnName="COUNTRY"/>
+      </attribute>
+      <attribute id="PUBLISHER" order="10" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+        <descriptions defaultDescription="PUBLISHER"/>
+        <keyMapping columnObjectName="booksPlusVAT" columnName="PUBLISHER"/>
+      </attribute>
+      <attribute id="ISBN" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="ISBN"/>
+        <keyMapping columnObjectName="booksPlusVAT" columnName="ISBN"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="PRICE" order="12" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="PRICE"/>
+        <measureMapping columnObjectName="booksPlusVAT" columnName="PRICE"/>
+      </measure>
+      <measure id="PRICEPLUSVAT" order="13" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="PRICEPLUSVAT"/>
+        <measureMapping columnObjectName="booksPlusVAT" columnName="PRICEPLUSVAT"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/></shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

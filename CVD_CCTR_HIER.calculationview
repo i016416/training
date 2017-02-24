@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" schemaVersion="2.3" id="CVD_CCTR_HIER" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="TREE_BASED" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection">
+  <origin/>
+  <descriptions defaultDescription="CVD_CCTR_HIER"/>
+  <metadata changedAt="2017-02-21 10:12:29.325"/>
+  <localVariables>
+    <variable id="effective_date" parameter="true">
+      <descriptions defaultDescription="effective_date"/>
+      <variableProperties datatype="NVARCHAR" defaultValue="2015-01-01" length="10" mandatory="false">
+        <valueDomain type="StaticList">
+          <listEntry id="2015-01-01">
+            <descriptions defaultDescription="2015"/>
+          </listEntry>
+          <listEntry id="2016-01-01">
+            <descriptions defaultDescription="2016"/>
+          </listEntry>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="CCTR_HIE_TIME" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Training" columnObjectName="CCTR_HIE_TIME"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews/>
+  <inlineHierarchy xsi:type="Dimension:ParentChildHierarchy" id="cctr_hier_asat" aggregateAllNodes="true" cacheEnabled="false" cycleHandling="BREAKUP" multipleParents="true" orphanedNodesHandling="IGNORE" rootNodeVisibility="ADD_ROOT_NODE_IF_DEFINED">
+    <descriptions defaultDescription="cctr_hier_asat"/>
+    <attributeParentPair attribute="#CCTR_CHILD" parentAttribute="#CCTR_PARENT"/>
+    <timeProperties>
+      <validFromElement xsi:type="DataFoundation:Attribute">#DATE_FROM</validFromElement>
+      <validToElement xsi:type="DataFoundation:Attribute">#DATE_TO</validToElement>
+      <pointInTimeVariable>#effective_date</pointInTimeVariable>
+    </timeProperties>
+  </inlineHierarchy>
+  <logicalModel id="CCTR_HIE_TIME">
+    <descriptions/>
+    <attributes>
+      <attribute id="CCTR_CHILD" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CCTR_CHILD"/>
+        <keyMapping schemaName="Training" columnObjectName="CCTR_HIE_TIME" columnName="CCTR_CHILD"/>
+      </attribute>
+      <attribute id="CCTR_PARENT" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="CCTR_PARENT"/>
+        <keyMapping schemaName="Training" columnObjectName="CCTR_HIE_TIME" columnName="CCTR_PARENT"/>
+      </attribute>
+      <attribute id="DATE_FROM" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DATE_FROM"/>
+        <keyMapping schemaName="Training" columnObjectName="CCTR_HIE_TIME" columnName="DATE_FROM"/>
+      </attribute>
+      <attribute id="DATE_TO" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="DATE_TO"/>
+        <keyMapping schemaName="Training" columnObjectName="CCTR_HIE_TIME" columnName="DATE_TO"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

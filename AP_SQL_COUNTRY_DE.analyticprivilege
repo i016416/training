@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Privilege:analyticPrivilege xmlns:Privilege="http://www.sap.com/ndb/BiModelPrivilege.ecore" schemaVersion="1.1" id="AP_SQL_COUNTRY_DE" privilegeType="SQL_ANALYTIC_PRIVILEGE">
+  <origin/>
+  <descriptions defaultDescription="AP_SQL_COUNTRY_DE"/>
+  <metadata changedAt="2017-02-24 10:05:31.805" createdAt="2017-02-24 10:04:02.283"/>
+  <securedModels allInformationModels="false">
+    <modelUri>/STUDENT01/calculationviews/CVCS_PO2_SQL</modelUri>
+  </securedModels>
+  <whereSql>((&quot;COUNTRY&quot; = 'DE'))</whereSql>
+</Privilege:analyticPrivilege>

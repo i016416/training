@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CVC_SO_RANK_01" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="CVC_SO_RANK_01"/>
+  <metadata changedAt="2017-02-20 15:02:39.576"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="CVCS_SO" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/training.ha300/calculationviews/CVCS_SO</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:RankView" id="Rank_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="COUNTRY"/>
+        <viewAttribute id="PRODUCT_ID"/>
+        <viewAttribute id="GROSS_AMOUNT"/>
+        <viewAttribute id="BP_COMPANY_NAME"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#CVCS_SO">
+        <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY" source="COUNTRY"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="GROSS_AMOUNT" source="GROSS_AMOUNT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="BP_COMPANY_NAME" source="BP_COMPANY_NAME"/>
+      </input>
+      <windowFunction dynamicPartitionAttributes="true">
+        <partitionViewAttributeName>COUNTRY</partitionViewAttributeName>
+        <partitionViewAttributeName>BP_COMPANY_NAME</partitionViewAttributeName>
+        <order byViewAttributeName="GROSS_AMOUNT" direction="DESC"/>
+        <rankThreshold>
+          <value>5</value>
+        </rankThreshold>
+        <rankViewAttributeName>RANK</rankViewAttributeName>
+      </windowFunction>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Rank_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="COUNTRY" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="COUNTRY"/>
+        <keyMapping columnObjectName="Rank_1" columnName="COUNTRY"/>
+      </attribute>
+      <attribute id="PRODUCT_ID" order="2" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRODUCT_ID"/>
+        <keyMapping columnObjectName="Rank_1" columnName="PRODUCT_ID"/>
+      </attribute>
+      <attribute id="RANK" order="4" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions/>
+        <keyMapping columnObjectName="Rank_1" columnName="RANK"/>
+      </attribute>
+      <attribute id="BP_COMPANY_NAME" order="5" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="BP_COMPANY_NAME"/>
+        <keyMapping columnObjectName="Rank_1" columnName="BP_COMPANY_NAME"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="GROSS_AMOUNT" order="3" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="GROSS_AMOUNT"/>
+        <measureMapping columnObjectName="Rank_1" columnName="GROSS_AMOUNT"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Rank_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="150" y="220"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AccessControl="http://www.sap.com/ndb/SQLCoreModelAccessControl.ecore" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="MN_OPEN_SALES_ORDERS" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="crossClient" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" alwaysAggregateResult="true" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="true" executionSemantic="UNDEFINED" outputViewType="Aggregation" runWithInvokerPrivileges="false">
+  <origin/>
+  <descriptions defaultDescription="Query view for open sales orders"/>
+  <metadata changedAt="2017-02-22 13:50:08.916"/>
+  <defaultSchema schemaName="SAP_ECC"/>
+  <localVariables>
+    <variable id="V_SAPClient">
+      <descriptions defaultDescription="SAP Client"/>
+      <variableProperties datatype="CHAR" defaultValue="800" mandatory="true">
+        <valueDomain type="AttributeValue">
+          <externalLikeStructureName>sap.hba.ecc::SAPClientValueHelp</externalLikeStructureName>
+          <externalLikeStructureType>CALCULATION_VIEW</externalLikeStructureType>
+          <externalLikeElementName>SAPClient</externalLikeElementName>
+        </valueDomain>
+        <selection multiLine="false" type="SingleValue"/>
+      </variableProperties>
+    </variable>
+  </localVariables>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="SalesOrderHeader" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/sap.hba.ecc/calculationviews/SalesOrderHeader</resourceUri>
+    </DataSource>
+    <DataSource id="SalesDocumentType" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/sap.hba.ecc/calculationviews/SalesDocumentType</resourceUri>
+    </DataSource>
+    <DataSource id="SalesOffice" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/sap.hba.ecc/calculationviews/SalesOffice</resourceUri>
+    </DataSource>
+    <DataSource id="SalesGroup" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/sap.hba.ecc/calculationviews/SalesGroup</resourceUri>
+    </DataSource>
+    <DataSource id="DistributionChannel" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/sap.hba.ecc/calculationviews/DistributionChannel</resourceUri>
+    </DataSource>
+    <DataSource id="Division" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/sap.hba.ecc/calculationviews/Division</resourceUri>
+    </DataSource>
+    <DataSource id="CustomerBasicData" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/sap.hba.ecc/calculationviews/CustomerBasicData</resourceUri>
+    </DataSource>
+    <DataSource id="SDDocHeaderBusinessPartner" type="CALCULATION_VIEW">
+      <viewAttributes allViewAttributes="true"/>
+      <resourceUri>/sap.hba.ecc/calculationviews/SDDocHeaderBusinessPartner</resourceUri>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="SAPClient"/>
+        <viewAttribute id="SalesOrder"/>
+        <viewAttribute id="SalesOrganization"/>
+        <viewAttribute id="DistributionChannel"/>
+        <viewAttribute id="OrganizationDivision"/>
+        <viewAttribute id="SalesOffice"/>
+        <viewAttribute id="SalesGroup"/>
+        <viewAttribute id="SoldToParty"/>
+        <viewAttribute id="SalesOrderType"/>
+        <viewAttribute id="SalesOrderDate"/>
+        <viewAttribute id="TotalNetAmount"/>
+        <viewAttribute id="SalesOrderCount"/>
+        <viewAttribute id="TransactionCurrency"/>
+        <viewAttribute id="SalesOrganizationName"/>
+        <viewAttribute id="PurchaseOrderByCustomer"/>
+        <viewAttribute id="OverallSDProcessStatus">
+          <filter xsi:type="AccessControl:ListValueFilter" operator="IN" including="true">
+            <operands value="A"/>
+            <operands value="B"/>
+          </filter>
+        </viewAttribute>
+        <viewAttribute id="StatisticsCurrency"/>
+        <viewAttribute id="CreatedByUser"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#SalesOrderHeader">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrder" source="SalesOrder"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganization" source="SalesOrganization"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannel" source="DistributionChannel"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OrganizationDivision" source="OrganizationDivision"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOffice" source="SalesOffice"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroup" source="SalesGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SoldToParty" source="SoldToParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderType" source="SalesOrderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderDate" source="SalesOrderDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TotalNetAmount" source="TotalNetAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderCount" source="SalesOrderCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TransactionCurrency" source="TransactionCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganizationName" source="SalesOrganizationName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PurchaseOrderByCustomer" source="PurchaseOrderByCustomer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OverallSDProcessStatus" source="OverallSDProcessStatus"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatisticsCurrency" source="StatisticsCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreatedByUser" source="CreatedByUser"/>
+      </input>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="SAPClient"/>
+        <viewAttribute id="SalesOrderType"/>
+        <viewAttribute id="SalesDocumentTypeName"/>
+        <viewAttribute id="SalesOrder"/>
+        <viewAttribute id="SalesOrganization"/>
+        <viewAttribute id="DistributionChannel"/>
+        <viewAttribute id="OrganizationDivision"/>
+        <viewAttribute id="SalesOffice"/>
+        <viewAttribute id="SalesGroup"/>
+        <viewAttribute id="SoldToParty"/>
+        <viewAttribute id="SalesOrderDate"/>
+        <viewAttribute id="TotalNetAmount"/>
+        <viewAttribute id="SalesOrderCount"/>
+        <viewAttribute id="TransactionCurrency"/>
+        <viewAttribute id="SalesOrganizationName"/>
+        <viewAttribute id="PurchaseOrderByCustomer"/>
+        <viewAttribute id="OverallSDProcessStatus"/>
+        <viewAttribute id="StatisticsCurrency"/>
+        <viewAttribute id="CreatedByUser"/>
+        <viewAttribute id="SalesDocumentType_E"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Projection_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderType" source="SalesOrderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrder" source="SalesOrder"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganization" source="SalesOrganization"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannel" source="DistributionChannel"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OrganizationDivision" source="OrganizationDivision"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOffice" source="SalesOffice"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroup" source="SalesGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SoldToParty" source="SoldToParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderDate" source="SalesOrderDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TotalNetAmount" source="TotalNetAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderCount" source="SalesOrderCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TransactionCurrency" source="TransactionCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganizationName" source="SalesOrganizationName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PurchaseOrderByCustomer" source="PurchaseOrderByCustomer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OverallSDProcessStatus" source="OverallSDProcessStatus"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatisticsCurrency" source="StatisticsCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreatedByUser" source="CreatedByUser"/>
+      </input>
+      <input node="#SalesDocumentType">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentTypeName" source="SalesDocumentTypeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentType_E" source="SalesDocumentType_E"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderType" source="SalesDocumentType"/>
+      </input>
+      <joinAttribute name="SAPClient"/>
+      <joinAttribute name="SalesOrderType"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_2" cardinality="CN_1" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="SAPClient"/>
+        <viewAttribute id="SalesOffice"/>
+        <viewAttribute id="SalesOfficeName"/>
+        <viewAttribute id="SalesOrderType"/>
+        <viewAttribute id="SalesDocumentTypeName"/>
+        <viewAttribute id="SalesOrder"/>
+        <viewAttribute id="SalesOrganization"/>
+        <viewAttribute id="DistributionChannel"/>
+        <viewAttribute id="OrganizationDivision"/>
+        <viewAttribute id="SalesGroup"/>
+        <viewAttribute id="SoldToParty"/>
+        <viewAttribute id="SalesOrderDate"/>
+        <viewAttribute id="TotalNetAmount"/>
+        <viewAttribute id="SalesOrderCount"/>
+        <viewAttribute id="TransactionCurrency"/>
+        <viewAttribute id="SalesOrganizationName"/>
+        <viewAttribute id="PurchaseOrderByCustomer"/>
+        <viewAttribute id="OverallSDProcessStatus"/>
+        <viewAttribute id="StatisticsCurrency"/>
+        <viewAttribute id="CreatedByUser"/>
+        <viewAttribute id="SalesDocumentType_E"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_1">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOffice" source="SalesOffice"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderType" source="SalesOrderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentTypeName" source="SalesDocumentTypeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrder" source="SalesOrder"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganization" source="SalesOrganization"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannel" source="DistributionChannel"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OrganizationDivision" source="OrganizationDivision"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroup" source="SalesGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SoldToParty" source="SoldToParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderDate" source="SalesOrderDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TotalNetAmount" source="TotalNetAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderCount" source="SalesOrderCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TransactionCurrency" source="TransactionCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganizationName" source="SalesOrganizationName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PurchaseOrderByCustomer" source="PurchaseOrderByCustomer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OverallSDProcessStatus" source="OverallSDProcessStatus"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatisticsCurrency" source="StatisticsCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreatedByUser" source="CreatedByUser"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentType_E" source="SalesDocumentType_E"/>
+      </input>
+      <input node="#SalesOffice">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOfficeName" source="SalesOfficeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOffice" source="SalesOffice"/>
+      </input>
+      <joinAttribute name="SAPClient"/>
+      <joinAttribute name="SalesOffice"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_3" cardinality="CN_1" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="SAPClient"/>
+        <viewAttribute id="SalesGroup"/>
+        <viewAttribute id="SalesGroupName"/>
+        <viewAttribute id="SalesOffice"/>
+        <viewAttribute id="SalesOfficeName"/>
+        <viewAttribute id="SalesOrderType"/>
+        <viewAttribute id="SalesDocumentTypeName"/>
+        <viewAttribute id="SalesOrder"/>
+        <viewAttribute id="SalesOrganization"/>
+        <viewAttribute id="DistributionChannel"/>
+        <viewAttribute id="OrganizationDivision"/>
+        <viewAttribute id="SoldToParty"/>
+        <viewAttribute id="SalesOrderDate"/>
+        <viewAttribute id="TotalNetAmount"/>
+        <viewAttribute id="SalesOrderCount"/>
+        <viewAttribute id="TransactionCurrency"/>
+        <viewAttribute id="SalesOrganizationName"/>
+        <viewAttribute id="PurchaseOrderByCustomer"/>
+        <viewAttribute id="OverallSDProcessStatus"/>
+        <viewAttribute id="StatisticsCurrency"/>
+        <viewAttribute id="CreatedByUser"/>
+        <viewAttribute id="SalesDocumentType_E"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_2">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroup" source="SalesGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOffice" source="SalesOffice"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOfficeName" source="SalesOfficeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderType" source="SalesOrderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentTypeName" source="SalesDocumentTypeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrder" source="SalesOrder"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganization" source="SalesOrganization"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannel" source="DistributionChannel"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OrganizationDivision" source="OrganizationDivision"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SoldToParty" source="SoldToParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderDate" source="SalesOrderDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TotalNetAmount" source="TotalNetAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderCount" source="SalesOrderCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TransactionCurrency" source="TransactionCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganizationName" source="SalesOrganizationName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PurchaseOrderByCustomer" source="PurchaseOrderByCustomer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OverallSDProcessStatus" source="OverallSDProcessStatus"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatisticsCurrency" source="StatisticsCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreatedByUser" source="CreatedByUser"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentType_E" source="SalesDocumentType_E"/>
+      </input>
+      <input node="#SalesGroup">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroupName" source="SalesGroupName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroup" source="SalesGroup"/>
+      </input>
+      <joinAttribute name="SAPClient"/>
+      <joinAttribute name="SalesGroup"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_4" cardinality="CN_1" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="SAPClient"/>
+        <viewAttribute id="DistributionChannel"/>
+        <viewAttribute id="DistributionChannelName"/>
+        <viewAttribute id="SalesGroup"/>
+        <viewAttribute id="SalesGroupName"/>
+        <viewAttribute id="SalesOffice"/>
+        <viewAttribute id="SalesOfficeName"/>
+        <viewAttribute id="SalesOrderType"/>
+        <viewAttribute id="SalesDocumentTypeName"/>
+        <viewAttribute id="SalesOrder"/>
+        <viewAttribute id="SalesOrganization"/>
+        <viewAttribute id="OrganizationDivision"/>
+        <viewAttribute id="SoldToParty"/>
+        <viewAttribute id="SalesOrderDate"/>
+        <viewAttribute id="TotalNetAmount"/>
+        <viewAttribute id="SalesOrderCount"/>
+        <viewAttribute id="TransactionCurrency"/>
+        <viewAttribute id="SalesOrganizationName"/>
+        <viewAttribute id="PurchaseOrderByCustomer"/>
+        <viewAttribute id="OverallSDProcessStatus"/>
+        <viewAttribute id="StatisticsCurrency"/>
+        <viewAttribute id="CreatedByUser"/>
+        <viewAttribute id="SalesDocumentType_E"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_3">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannel" source="DistributionChannel"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroup" source="SalesGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroupName" source="SalesGroupName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOffice" source="SalesOffice"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOfficeName" source="SalesOfficeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderType" source="SalesOrderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentTypeName" source="SalesDocumentTypeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrder" source="SalesOrder"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganization" source="SalesOrganization"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OrganizationDivision" source="OrganizationDivision"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SoldToParty" source="SoldToParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderDate" source="SalesOrderDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TotalNetAmount" source="TotalNetAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderCount" source="SalesOrderCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TransactionCurrency" source="TransactionCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganizationName" source="SalesOrganizationName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PurchaseOrderByCustomer" source="PurchaseOrderByCustomer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OverallSDProcessStatus" source="OverallSDProcessStatus"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatisticsCurrency" source="StatisticsCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreatedByUser" source="CreatedByUser"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentType_E" source="SalesDocumentType_E"/>
+      </input>
+      <input node="#DistributionChannel">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannelName" source="DistributionChannelName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannel" source="DistributionChannel"/>
+      </input>
+      <joinAttribute name="SAPClient"/>
+      <joinAttribute name="DistributionChannel"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_5" cardinality="CN_1" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="SAPClient"/>
+        <viewAttribute id="OrganizationDivision"/>
+        <viewAttribute id="DivisionName"/>
+        <viewAttribute id="DistributionChannel"/>
+        <viewAttribute id="DistributionChannelName"/>
+        <viewAttribute id="SalesGroup"/>
+        <viewAttribute id="SalesGroupName"/>
+        <viewAttribute id="SalesOffice"/>
+        <viewAttribute id="SalesOfficeName"/>
+        <viewAttribute id="SalesOrderType"/>
+        <viewAttribute id="SalesDocumentTypeName"/>
+        <viewAttribute id="SalesOrder"/>
+        <viewAttribute id="SalesOrganization"/>
+        <viewAttribute id="SoldToParty"/>
+        <viewAttribute id="SalesOrderDate"/>
+        <viewAttribute id="TotalNetAmount"/>
+        <viewAttribute id="SalesOrderCount"/>
+        <viewAttribute id="TransactionCurrency"/>
+        <viewAttribute id="SalesOrganizationName"/>
+        <viewAttribute id="PurchaseOrderByCustomer"/>
+        <viewAttribute id="OverallSDProcessStatus"/>
+        <viewAttribute id="StatisticsCurrency"/>
+        <viewAttribute id="CreatedByUser"/>
+        <viewAttribute id="SalesDocumentType_E"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_4">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OrganizationDivision" source="OrganizationDivision"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannel" source="DistributionChannel"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannelName" source="DistributionChannelName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroup" source="SalesGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroupName" source="SalesGroupName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOffice" source="SalesOffice"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOfficeName" source="SalesOfficeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderType" source="SalesOrderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentTypeName" source="SalesDocumentTypeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrder" source="SalesOrder"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganization" source="SalesOrganization"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SoldToParty" source="SoldToParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderDate" source="SalesOrderDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TotalNetAmount" source="TotalNetAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderCount" source="SalesOrderCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TransactionCurrency" source="TransactionCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganizationName" source="SalesOrganizationName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PurchaseOrderByCustomer" source="PurchaseOrderByCustomer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OverallSDProcessStatus" source="OverallSDProcessStatus"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatisticsCurrency" source="StatisticsCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreatedByUser" source="CreatedByUser"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentType_E" source="SalesDocumentType_E"/>
+      </input>
+      <input node="#Division">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DivisionName" source="DivisionName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OrganizationDivision" source="Division"/>
+      </input>
+      <joinAttribute name="SAPClient"/>
+      <joinAttribute name="OrganizationDivision"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_6" cardinality="CN_1" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="SAPClient"/>
+        <viewAttribute id="SoldToParty"/>
+        <viewAttribute id="CustomerName"/>
+        <viewAttribute id="OrganizationDivision"/>
+        <viewAttribute id="DivisionName"/>
+        <viewAttribute id="DistributionChannel"/>
+        <viewAttribute id="DistributionChannelName"/>
+        <viewAttribute id="SalesGroup"/>
+        <viewAttribute id="SalesGroupName"/>
+        <viewAttribute id="SalesOffice"/>
+        <viewAttribute id="SalesOfficeName"/>
+        <viewAttribute id="SalesOrderType"/>
+        <viewAttribute id="SalesDocumentTypeName"/>
+        <viewAttribute id="SalesOrder"/>
+        <viewAttribute id="SalesOrganization"/>
+        <viewAttribute id="SalesOrderDate"/>
+        <viewAttribute id="TotalNetAmount"/>
+        <viewAttribute id="SalesOrderCount"/>
+        <viewAttribute id="TransactionCurrency"/>
+        <viewAttribute id="SalesOrganizationName"/>
+        <viewAttribute id="PurchaseOrderByCustomer"/>
+        <viewAttribute id="OverallSDProcessStatus"/>
+        <viewAttribute id="StatisticsCurrency"/>
+        <viewAttribute id="CreatedByUser"/>
+        <viewAttribute id="SalesDocumentType_E"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_5">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SoldToParty" source="SoldToParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OrganizationDivision" source="OrganizationDivision"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DivisionName" source="DivisionName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannel" source="DistributionChannel"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannelName" source="DistributionChannelName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroup" source="SalesGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroupName" source="SalesGroupName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOffice" source="SalesOffice"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOfficeName" source="SalesOfficeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderType" source="SalesOrderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentTypeName" source="SalesDocumentTypeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrder" source="SalesOrder"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganization" source="SalesOrganization"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderDate" source="SalesOrderDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TotalNetAmount" source="TotalNetAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderCount" source="SalesOrderCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TransactionCurrency" source="TransactionCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganizationName" source="SalesOrganizationName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PurchaseOrderByCustomer" source="PurchaseOrderByCustomer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OverallSDProcessStatus" source="OverallSDProcessStatus"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatisticsCurrency" source="StatisticsCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreatedByUser" source="CreatedByUser"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentType_E" source="SalesDocumentType_E"/>
+      </input>
+      <input node="#CustomerBasicData">
+        <mapping xsi:type="Calculation:AttributeMapping" target="CustomerName" source="CustomerName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SoldToParty" source="Customer"/>
+      </input>
+      <joinAttribute name="SAPClient"/>
+      <joinAttribute name="SoldToParty"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_7" cardinality="CN_1" joinType="leftOuter">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="SAPClient"/>
+        <viewAttribute id="SalesOrder"/>
+        <viewAttribute id="OrganizationDivision"/>
+        <viewAttribute id="DivisionName"/>
+        <viewAttribute id="DistributionChannel"/>
+        <viewAttribute id="DistributionChannelName"/>
+        <viewAttribute id="SalesGroup"/>
+        <viewAttribute id="SalesGroupName"/>
+        <viewAttribute id="SalesOffice"/>
+        <viewAttribute id="SalesOfficeName"/>
+        <viewAttribute id="SalesOrderType"/>
+        <viewAttribute id="SalesDocumentTypeName"/>
+        <viewAttribute id="SalesOrganization"/>
+        <viewAttribute id="SalesOrderDate"/>
+        <viewAttribute id="TotalNetAmount"/>
+        <viewAttribute id="SalesOrderCount"/>
+        <viewAttribute id="TransactionCurrency"/>
+        <viewAttribute id="SalesOrganizationName"/>
+        <viewAttribute id="SalesEmployee"/>
+        <viewAttribute id="SalesEmployeeName"/>
+        <viewAttribute id="ResponsibleEmployee"/>
+        <viewAttribute id="ResponsibleEmployeeName"/>
+        <viewAttribute id="SoldToParty"/>
+        <viewAttribute id="CustomerName"/>
+        <viewAttribute id="PurchaseOrderByCustomer"/>
+        <viewAttribute id="OverallSDProcessStatus"/>
+        <viewAttribute id="StatisticsCurrency"/>
+        <viewAttribute id="CreatedByUser"/>
+        <viewAttribute id="SalesDocumentType_E"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#Join_6">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrder" source="SalesOrder"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OrganizationDivision" source="OrganizationDivision"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DivisionName" source="DivisionName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannel" source="DistributionChannel"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannelName" source="DistributionChannelName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroup" source="SalesGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroupName" source="SalesGroupName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOffice" source="SalesOffice"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOfficeName" source="SalesOfficeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderType" source="SalesOrderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentTypeName" source="SalesDocumentTypeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganization" source="SalesOrganization"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderDate" source="SalesOrderDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TotalNetAmount" source="TotalNetAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderCount" source="SalesOrderCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TransactionCurrency" source="TransactionCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganizationName" source="SalesOrganizationName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SoldToParty" source="SoldToParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CustomerName" source="CustomerName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PurchaseOrderByCustomer" source="PurchaseOrderByCustomer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OverallSDProcessStatus" source="OverallSDProcessStatus"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatisticsCurrency" source="StatisticsCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreatedByUser" source="CreatedByUser"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentType_E" source="SalesDocumentType_E"/>
+      </input>
+      <input node="#SDDocHeaderBusinessPartner">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesEmployee" source="SalesEmployee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesEmployeeName" source="SalesEmployeeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ResponsibleEmployee" source="ResponsibleEmployee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ResponsibleEmployeeName" source="ResponsibleEmployeeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrder" source="SalesDocument"/>
+      </input>
+      <joinAttribute name="SAPClient"/>
+      <joinAttribute name="SalesOrder"/>
+    </calculationView>
+    <calculationView xsi:type="Calculation:ProjectionView" id="Projection_3">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="SAPClient"/>
+        <viewAttribute id="SalesOrder"/>
+        <viewAttribute id="OrganizationDivision"/>
+        <viewAttribute id="DivisionName"/>
+        <viewAttribute id="DistributionChannel"/>
+        <viewAttribute id="DistributionChannelName"/>
+        <viewAttribute id="SalesGroup"/>
+        <viewAttribute id="SalesGroupName"/>
+        <viewAttribute id="SalesOffice"/>
+        <viewAttribute id="SalesOfficeName"/>
+        <viewAttribute id="SalesOrderType"/>
+        <viewAttribute id="SalesDocumentTypeName"/>
+        <viewAttribute id="SalesOrganization"/>
+        <viewAttribute id="SalesOrderDate"/>
+        <viewAttribute id="TotalNetAmount"/>
+        <viewAttribute id="SalesOrderCount"/>
+        <viewAttribute id="TransactionCurrency"/>
+        <viewAttribute id="SalesOrganizationName"/>
+        <viewAttribute id="SalesEmployee"/>
+        <viewAttribute id="SalesEmployeeName"/>
+        <viewAttribute id="ResponsibleEmployee"/>
+        <viewAttribute id="ResponsibleEmployeeName"/>
+        <viewAttribute id="SoldToParty"/>
+        <viewAttribute id="CustomerName"/>
+        <viewAttribute id="PurchaseOrderByCustomer"/>
+        <viewAttribute id="OverallSDProcessStatus"/>
+        <viewAttribute id="StatisticsCurrency"/>
+        <viewAttribute id="CreatedByUser"/>
+        <viewAttribute id="SalesDocumentType_E"/>
+      </viewAttributes>
+      <calculatedViewAttributes>
+        <calculatedViewAttribute datatype="DATE" id="SalesOrderDate_E" expressionLanguage="COLUMN_ENGINE">
+          <formula>daydate(&quot;SalesOrderDate&quot;)</formula>
+        </calculatedViewAttribute>
+        <calculatedViewAttribute datatype="DECIMAL" id="TotalNetAmount_E" length="26" scale="6" expressionLanguage="COLUMN_ENGINE">
+          <formula>decfloat(&quot;TotalNetAmount&quot;)</formula>
+        </calculatedViewAttribute>
+      </calculatedViewAttributes>
+      <input node="#Join_7">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SAPClient" source="SAPClient"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrder" source="SalesOrder"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OrganizationDivision" source="OrganizationDivision"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DivisionName" source="DivisionName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannel" source="DistributionChannel"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DistributionChannelName" source="DistributionChannelName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroup" source="SalesGroup"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesGroupName" source="SalesGroupName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOffice" source="SalesOffice"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOfficeName" source="SalesOfficeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderType" source="SalesOrderType"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentTypeName" source="SalesDocumentTypeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganization" source="SalesOrganization"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderDate" source="SalesOrderDate"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TotalNetAmount" source="TotalNetAmount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrderCount" source="SalesOrderCount"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="TransactionCurrency" source="TransactionCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesOrganizationName" source="SalesOrganizationName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesEmployee" source="SalesEmployee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesEmployeeName" source="SalesEmployeeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ResponsibleEmployee" source="ResponsibleEmployee"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="ResponsibleEmployeeName" source="ResponsibleEmployeeName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SoldToParty" source="SoldToParty"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CustomerName" source="CustomerName"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PurchaseOrderByCustomer" source="PurchaseOrderByCustomer"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="OverallSDProcessStatus" source="OverallSDProcessStatus"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="StatisticsCurrency" source="StatisticsCurrency"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="CreatedByUser" source="CreatedByUser"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="SalesDocumentType_E" source="SalesDocumentType_E"/>
+      </input>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Projection_3">
+    <descriptions/>
+    <attributes>
+      <attribute id="SAPClient" order="1" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="SAP Client"/>
+        <localVariable>#V_SAPClient</localVariable>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SAPClient"/>
+      </attribute>
+      <attribute id="SalesOrder" order="2" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Order"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SalesOrder"/>
+      </attribute>
+      <attribute id="OrganizationDivision" order="3" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Organization Division"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="OrganizationDivision"/>
+      </attribute>
+      <attribute id="DivisionName" order="4" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Division Name"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="DivisionName"/>
+      </attribute>
+      <attribute id="DistributionChannel" order="5" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Distribution Channel"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="DistributionChannel"/>
+      </attribute>
+      <attribute id="DistributionChannelName" order="6" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Distribution Channel Name"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="DistributionChannelName"/>
+      </attribute>
+      <attribute id="SalesGroup" order="7" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Group"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SalesGroup"/>
+      </attribute>
+      <attribute id="SalesGroupName" order="8" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Group Name"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SalesGroupName"/>
+      </attribute>
+      <attribute id="SalesOffice" order="9" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Office"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SalesOffice"/>
+      </attribute>
+      <attribute id="SalesOfficeName" order="10" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Office Name"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SalesOfficeName"/>
+      </attribute>
+      <attribute id="SalesOrderType" order="11" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Order Type"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SalesOrderType"/>
+      </attribute>
+      <attribute id="SalesOrderType_E" order="12" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Order Type"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SalesDocumentType_E"/>
+      </attribute>
+      <attribute id="SalesDocumentTypeName" order="13" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Document Type Name"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SalesDocumentTypeName"/>
+      </attribute>
+      <attribute id="SalesOrganization" order="14" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Organization"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SalesOrganization"/>
+      </attribute>
+      <attribute id="SalesOrganizationName" order="15" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Organization Name"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SalesOrganizationName"/>
+      </attribute>
+      <attribute id="SalesOrderDate_E" order="16" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Order Date"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SalesOrderDate_E"/>
+      </attribute>
+      <attribute id="TransactionCurrency" order="17" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Transaction Currency"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="TransactionCurrency"/>
+      </attribute>
+      <attribute id="StatisticsCurrency" order="18" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Statistics Currency"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="StatisticsCurrency"/>
+      </attribute>
+      <attribute id="SalesEmployee" order="19" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Employee"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SalesEmployee"/>
+      </attribute>
+      <attribute id="SalesEmployeeName" order="20" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sales Employee Name"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SalesEmployeeName"/>
+      </attribute>
+      <attribute id="ResponsibleEmployee" order="21" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Responsible Employee"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="ResponsibleEmployee"/>
+      </attribute>
+      <attribute id="ResponsibleEmployeeName" order="22" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Responsible Employee Name"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="ResponsibleEmployeeName"/>
+      </attribute>
+      <attribute id="SoldToParty" order="23" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sold To Party"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="SoldToParty"/>
+      </attribute>
+      <attribute id="SoldToPartyName" order="24" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Sold To Party Name"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="CustomerName"/>
+      </attribute>
+      <attribute id="PurchaseOrderByCustomer" order="25" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Purchase Order By Customer"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="PurchaseOrderByCustomer"/>
+      </attribute>
+      <attribute id="CreatedByUser" order="26" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Created By User"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="CreatedByUser"/>
+      </attribute>
+      <attribute id="OverallSDProcessStatus" order="27" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="Overall SD Process Status"/>
+        <searchProperties/>
+        <keyMapping columnObjectName="Projection_3" columnName="OverallSDProcessStatus"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="TotalNetAmount_E" order="28" semanticType="amount" aggregationType="sum" measureType="amount">
+        <descriptions defaultDescription="Total Net Amount"/>
+        <currencyConversion>
+          <sourceCurrency>
+            <attribute attributeName="TransactionCurrency"/>
+          </sourceCurrency>
+          <erpDecimalShift>true</erpDecimalShift>
+        </currencyConversion>
+        <measureMapping columnObjectName="Projection_3" columnName="TotalNetAmount_E"/>
+      </measure>
+      <measure id="NumberOfOpenSalesOrders" order="29" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="Number Of Open Sales Orders"/>
+        <measureMapping columnObjectName="Projection_3" columnName="SalesOrderCount"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="22" y="87"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="931"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="833"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape modelObjectName="Join_2" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="735"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape modelObjectName="Join_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="637"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape modelObjectName="Join_4" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="539"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape modelObjectName="Join_5" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="441"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape modelObjectName="Join_6" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="343"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape modelObjectName="Join_7" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="245"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape modelObjectName="Projection_3" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="22" y="166"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

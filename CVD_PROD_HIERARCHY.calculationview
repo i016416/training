@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" schemaVersion="2.3" id="CVD_PROD_HIERARCHY" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="TREE_BASED" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Projection">
+  <origin/>
+  <descriptions defaultDescription="CVD_PROD_HIERARCHY"/>
+  <metadata changedAt="2017-02-21 09:34:23.375"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="PRODUCT_GROUP" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Training" columnObjectName="PRODUCT_GROUP"/>
+    </DataSource>
+    <DataSource id="PRODUCT" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Training" columnObjectName="PRODUCT"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="PRODUCT_GROUP_TEXT"/>
+        <viewAttribute id="PRODUCT_TEXT"/>
+        <viewAttribute id="PRODUCT_ID"/>
+        <viewAttribute hidden="true" id="JOIN$PRODUCT_GROUP$PRODCUT_GROUP"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#PRODUCT_GROUP">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_GROUP_TEXT" source="PRODUCT_GROUP_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_GROUP$PRODCUT_GROUP" source="PRODUCT_GROUP"/>
+      </input>
+      <input node="#PRODUCT">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_TEXT" source="PRODUCT_TEXT"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="PRODUCT_ID" source="PRODUCT_ID"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$PRODUCT_GROUP$PRODCUT_GROUP" source="PRODCUT_GROUP"/>
+      </input>
+      <joinAttribute name="JOIN$PRODUCT_GROUP$PRODCUT_GROUP"/>
+    </calculationView>
+  </calculationViews>
+  <inlineHierarchy xsi:type="Dimension:LeveledHierarchy" id="prod_hier" aggregateAllNodes="true" cacheEnabled="false" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_ONLY">
+    <descriptions defaultDescription="prod_hier"/>
+    <unassignedMemberProperties>
+      <name xsi:nil="true"/>
+      <nullConvertValue xsi:nil="true"/>
+    </unassignedMemberProperties>
+    <levels>
+      <level levelAttribute="#PRODUCT_GROUP_TEXT" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="#PRODUCT_GROUP_TEXT"/>
+      <level levelAttribute="#PRODUCT_TEXT" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="#PRODUCT_TEXT"/>
+    </levels>
+  </inlineHierarchy>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="PRODUCT_GROUP_TEXT" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRODUCT_GROUP_TEXT"/>
+        <keyMapping columnObjectName="Join_1" columnName="PRODUCT_GROUP_TEXT"/>
+      </attribute>
+      <attribute id="PRODUCT_TEXT" order="2" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRODUCT_TEXT"/>
+        <keyMapping columnObjectName="Join_1" columnName="PRODUCT_TEXT"/>
+      </attribute>
+      <attribute id="PRODUCT_ID" order="3" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PRODUCT_ID"/>
+        <keyMapping columnObjectName="Join_1" columnName="PRODUCT_ID"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures/>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize height="0" width="0"/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="80" y="240"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

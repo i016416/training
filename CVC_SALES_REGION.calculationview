@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" schemaVersion="2.3" id="CVC_SALES_REGION" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="reportingEnabled" calculationScenarioType="TREE_BASED" dataCategory="CUBE" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="CVC_SALES_REGION"/>
+  <metadata changedAt="2017-02-23 09:25:32.404"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="GEO_CUSTOMERS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Training" columnObjectName="GEO_CUSTOMERS"/>
+    </DataSource>
+    <DataSource id="GEO_REGIONS" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Training" columnObjectName="GEO_REGIONS"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="REGION_BUSINESS_AREA"/>
+        <viewAttribute id="SALES"/>
+        <viewAttribute id="REGION_NAME"/>
+        <viewAttribute hidden="true" id="JOIN$CUSTOMER_LOC_METRIC$REGION_LOC_METRIC"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#GEO_CUSTOMERS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="SALES" source="SALES"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CUSTOMER_LOC_METRIC$REGION_LOC_METRIC" source="CUSTOMER_LOC_METRIC"/>
+      </input>
+      <input node="#GEO_REGIONS">
+        <mapping xsi:type="Calculation:AttributeMapping" target="REGION_BUSINESS_AREA" source="REGION_BUSINESS_AREA"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="REGION_NAME" source="REGION_NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$CUSTOMER_LOC_METRIC$REGION_LOC_METRIC" source="REGION_LOC_METRIC"/>
+      </input>
+      <joinAttribute name="JOIN$CUSTOMER_LOC_METRIC$REGION_LOC_METRIC">
+        <spatialJoinProperties predicate="COVERED_BY" predicateEvaluatesTo="true"/>
+      </joinAttribute>
+    </calculationView>
+  </calculationViews>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="REGION_BUSINESS_AREA" order="1" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="REGION_BUSINESS_AREA"/>
+        <keyMapping columnObjectName="Join_1" columnName="REGION_BUSINESS_AREA"/>
+      </attribute>
+      <attribute id="REGION_NAME" order="3" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="REGION_NAME"/>
+        <keyMapping columnObjectName="Join_1" columnName="REGION_NAME"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="SALES" order="2" semanticType="empty" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="SALES"/>
+        <measureMapping columnObjectName="Join_1" columnName="SALES"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="70" y="230"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" schemaVersion="2.3" id="CVD_EMP_HIERARCYHY" applyPrivilegeType="ANALYTIC_PRIVILEGE" checkAnalyticPrivileges="true" defaultClient="$$client$$" defaultLanguage="$$language$$" hierarchiesSQLEnabled="false" translationRelevant="true" visibility="internal" calculationScenarioType="TREE_BASED" dataCategory="DIMENSION" enforceSqlExecution="false" executionSemantic="UNDEFINED" outputViewType="Aggregation">
+  <origin/>
+  <descriptions defaultDescription="CVD_EMP_HIERARCYHY"/>
+  <metadata changedAt="2017-02-21 09:43:25.947"/>
+  <localVariables/>
+  <variableMappings/>
+  <informationModelLayout relativeWidthScenario="27"/>
+  <dataSources>
+    <DataSource id="EMPLOYEE" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Training" columnObjectName="EMPLOYEE"/>
+    </DataSource>
+    <DataSource id="EMPLOYEE_HIERARCHY" type="DATA_BASE_TABLE">
+      <viewAttributes allViewAttributes="true"/>
+      <columnObject schemaName="Training" columnObjectName="EMPLOYEE_HIERARCHY"/>
+    </DataSource>
+  </dataSources>
+  <calculationViews>
+    <calculationView xsi:type="Calculation:JoinView" id="Join_1" joinType="inner">
+      <descriptions/>
+      <viewAttributes>
+        <viewAttribute id="DNUMBER"/>
+        <viewAttribute id="NAME"/>
+        <viewAttribute id="REMAINDERDAYS"/>
+        <viewAttribute id="PARENT_DNUMBER"/>
+        <viewAttribute id="VALID_FROM_DATE"/>
+        <viewAttribute id="VALID_TO_DATE"/>
+      </viewAttributes>
+      <calculatedViewAttributes/>
+      <input node="#EMPLOYEE">
+        <mapping xsi:type="Calculation:AttributeMapping" target="DNUMBER" source="DNUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="NAME" source="NAME"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="REMAINDERDAYS" source="REMAINDERDAYS"/>
+      </input>
+      <input node="#EMPLOYEE_HIERARCHY">
+        <mapping xsi:type="Calculation:AttributeMapping" target="PARENT_DNUMBER" source="PARENT_DNUMBER"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VALID_FROM_DATE" source="VALID_FROM_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="VALID_TO_DATE" source="VALID_TO_DATE"/>
+        <mapping xsi:type="Calculation:AttributeMapping" target="DNUMBER" source="CHILD_DNUMBER"/>
+      </input>
+      <joinAttribute name="DNUMBER"/>
+    </calculationView>
+  </calculationViews>
+  <inlineHierarchy xsi:type="Dimension:ParentChildHierarchy" id="emp_hierarchy" aggregateAllNodes="true" cacheEnabled="false" cycleHandling="BREAKUP" rootNodeVisibility="ADD_ROOT_NODE_IF_DEFINED">
+    <descriptions defaultDescription="emp_hierarchy"/>
+    <attributeParentPair attribute="#DNUMBER" parentAttribute="#PARENT_DNUMBER"/>
+  </inlineHierarchy>
+  <logicalModel id="Join_1">
+    <descriptions/>
+    <attributes>
+      <attribute id="DNUMBER" order="1" semanticType="empty" attributeHierarchyActive="false" descriptionColumnName="NAME" displayAttribute="false">
+        <descriptions defaultDescription="DNUMBER"/>
+        <keyMapping columnObjectName="Join_1" columnName="DNUMBER"/>
+      </attribute>
+      <attribute id="NAME" order="2" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="NAME"/>
+        <keyMapping columnObjectName="Join_1" columnName="NAME"/>
+      </attribute>
+      <attribute id="PARENT_DNUMBER" order="4" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="PARENT_DNUMBER"/>
+        <keyMapping columnObjectName="Join_1" columnName="PARENT_DNUMBER"/>
+      </attribute>
+      <attribute id="VALID_FROM_DATE" order="5" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VALID_FROM_DATE"/>
+        <keyMapping columnObjectName="Join_1" columnName="VALID_FROM_DATE"/>
+      </attribute>
+      <attribute id="VALID_TO_DATE" order="6" semanticType="empty" attributeHierarchyActive="false" displayAttribute="false">
+        <descriptions defaultDescription="VALID_TO_DATE"/>
+        <keyMapping columnObjectName="Join_1" columnName="VALID_TO_DATE"/>
+      </attribute>
+    </attributes>
+    <calculatedAttributes/>
+    <privateDataFoundation>
+      <tableProxies/>
+      <joins/>
+      <layout>
+        <shapes/>
+      </layout>
+    </privateDataFoundation>
+    <baseMeasures>
+      <measure id="REMAINDERDAYS" order="3" semanticType="empty" aggregationType="sum" measureType="simple">
+        <descriptions defaultDescription="REMAINDERDAYS"/>
+        <measureMapping columnObjectName="Join_1" columnName="REMAINDERDAYS"/>
+      </measure>
+    </baseMeasures>
+    <calculatedMeasures/>
+    <restrictedMeasures/>
+    <localDimensions/>
+  </logicalModel>
+  <layout>
+    <shapes>
+      <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+        <upperLeftCorner x="40" y="85"/>
+        <rectangleSize/>
+      </shape>
+      <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+        <upperLeftCorner x="140" y="290"/>
+        <rectangleSize height="-1" width="-1"/>
+      </shape>
+    </shapes>
+  </layout>
+</Calculation:scenario>

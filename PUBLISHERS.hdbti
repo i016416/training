@@ -1,0 +1,8 @@
+import = [
+ {
+ table = "STUDENT01::demo.PUBLISHERS";
+ schema = "STUDENT01";
+ file = "STUDENT01:PUBLISHERS.csv";
+ header = false;
+ }
+ ];

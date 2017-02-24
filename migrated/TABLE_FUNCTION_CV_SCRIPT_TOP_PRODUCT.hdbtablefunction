@@ -1,0 +1,21 @@
+FUNCTION "_SYS_BIC"."STUDENT01.migrated::TABLE_FUNCTION_CV_SCRIPT_TOP_PRODUCT" (NUMBER_OF_YEARS INTEGER)
+RETURNS TABLE ("PRODUCT_ID" NVARCHAR (10), "CATEGORY" NVARCHAR (40), "REVENUE" DECIMAL (15, 2), "CURRENCY_CODE" NVARCHAR (5))
+LANGUAGE SQLSCRIPT
+SQL SECURITY DEFINER
+  AS 
+
+ 
+ /********* Begin Procedure Script ************/ 
+ BEGIN 
+ 	 var_out = select top 10 PD.PRODUCT_ID, PD.CATEGORY, sum(SOI.GROSS_AMOUNT) as REVENUE , SOI.CURRENCY_CODE
+						from "EPM_MODEL"."SNWD_PD" as PD
+						inner join ("EPM_MODEL"."SNWD_SO" as SOH  left outer join
+									"EPM_MODEL"."SNWD_SO_I" as SOI on SOH.NODE_KEY = SOI.PARENT_KEY )
+						on PD.NODE_KEY = SOI.PRODUCT_GUID
+						where to_date(SOH.CREATED_AT) > add_years(current_date,-1*:NUMBER_OF_YEARS)
+						group by PD.PRODUCT_ID, PD.CATEGORY, SOI.CURRENCY_CODE
+						order by REVENUE desc;
+
+
+return :var_out;
+END;

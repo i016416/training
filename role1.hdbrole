@@ -1,0 +1,5 @@
+role STUDENT01::role1
+{
+analytic privilege : STUDENT01:AP_CLASSICAL_COUNTRY_DE.analyticprivilege;
+
+}
